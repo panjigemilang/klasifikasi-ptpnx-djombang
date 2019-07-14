@@ -1,0 +1,97 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  /* overflow-x: hidden; */
+}
+
+/* HEADER */
+.nav-text-color a {
+  color: #bef7f5 !important;
+  text-shadow: 2px 2px 2px #00741f;
+}
+
+#nav-bg {
+  background-color: transparent;
+  padding: 3vh 10vh;
+  width: 100%;
+  margin-bottom: -104px;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 991px) {
+  #nav-bg {
+    position: static;
+    background: rgb(51, 172, 57);
+    background: linear-gradient(
+      90deg,
+      rgba(51, 172, 57, 1) 0%,
+      rgba(27, 177, 0, 1) 73%,
+      rgba(19, 161, 0, 1) 100%
+    );
+  }
+}
+
+/* BODY */
+.gambar {
+  height: 10px;
+}
+
+.wrapper {
+  background: url("../img/Artboard 1.png") no-repeat;
+  background-size: cover;
+  background-position: right;
+  width: 100%;
+  max-width: 100%;
+  /*    overflow: hidden;*/
+  min-height: 90vh;
+  overflow: hidden;
+  /*    width: 100%;*/
+  color: #128d6e;
+}
+
+.kotak-konten {
+  text-align: center;
+  height: 78vh;
+  width: 100%;
+  position: relative;
+  transform: translateY(30%);
+}
+
+.kotak-konten p {
+  text-align: justify;
+  padding: 1vh 14vh;
+}
+
+.carousel {
+  z-index: 0;
+}
+
+.carousel-item .carousel-caption h2 {
+  text-shadow: 2px 2px 4px rgb(1, 114, 57);
+}
+
+.gambar-landing {
+  max-width: 100%;
+  height: 90vh;
+  object-fit: cover;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  color: white;
+  background: rgb(64, 134, 67);
+  background: linear-gradient(
+    90deg,
+    rgba(64, 134, 67, 1) 0%,
+    rgba(49, 213, 19, 1) 59%,
+    rgba(64, 134, 67, 1) 100%
+  );
+}
+
+#copyright {
+  line-height: 10vh;
+}

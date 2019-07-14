@@ -1,0 +1,10 @@
+/* BODY */
+.login {
+  background: linear-gradient(rgb(46, 45, 45, 0.35), rgb(77, 76, 76, 0.35)),
+    url("../img/Artboard 1.png");
+  background-size: cover;
+  background-position: right;
+  width: 100%;
+  max-width: 100%;
+  min-height: 90vh;
+}

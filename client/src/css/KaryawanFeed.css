@@ -1,0 +1,30 @@
+/* BODY */
+#wrapper-kf {
+  /* overflow-y: scroll; */
+  background: url("../img/Artboard 1.png") no-repeat;
+  background-size: cover;
+  background-position: right;
+  width: 100%;
+  max-width: 100%;
+  min-height: 87vh;
+  z-index: -1;
+}
+
+.kotak {
+  margin: 0 10vh;
+  width: 100%;
+}
+
+.table {
+  background-color: antiquewhite !important;
+}
+
+#btn-add-karyawan {
+  margin: 5vh 10vh;
+  float: right;
+}
+
+.push {
+  background: black;
+  height: 5vh;
+}

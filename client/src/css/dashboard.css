@@ -1,0 +1,15 @@
+.wrapper-d {
+  background: linear-gradient(rgb(28, 94, 36, 0.7), rgb(0, 34, 16, 0.7)),
+    url("../img/Firewatch-Wallpaper-desktop-2560x1440-green.jpg") no-repeat;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  min-height: 90vh;
+}
+
+.wrapper-d h3,
+.wrapper-d p,
+.wrapper-d ul,
+.wrapper-d li {
+  text-shadow: 2px 2px 2px #063512;
+}

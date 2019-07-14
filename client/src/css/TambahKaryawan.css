@@ -1,0 +1,25 @@
+/* BODY */
+.wrapper-add {
+  /* linear-gradient(rgb(46, 45, 45, 0.45), rgb(77, 76, 76, 0.5)), */
+  background: url("../img/Artboard 1.png");
+  background-size: cover;
+  background-position: right;
+  width: 100%;
+  max-width: 100%;
+  min-height: 90vh;
+}
+
+h1.tambah {
+  text-shadow: 2px 2px 3px white;
+}
+
+.btn-box {
+  width: 100%;
+  margin: 5vh;
+}
+
+button {
+  float: right;
+  width: 80px;
+  margin: 0 1vh;
+}
