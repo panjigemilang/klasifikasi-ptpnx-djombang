@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "klasifikasi karyawan",
   "main": "server.js",
+  "engines": {
+    "node": "10.13.0"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
