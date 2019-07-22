@@ -46,13 +46,7 @@ class EditKaryawan extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      console.log("ini nextprops errors")
-      console.log(nextProps.errors)
-
       this.setState({ errors: nextProps.errors })
-
-      console.log("ini state errors")
-      console.log(this.state.errors)
     }
 
     // get the current profile

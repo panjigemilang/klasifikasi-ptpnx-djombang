@@ -19,7 +19,6 @@ app.use(bodyParser.json())
 const user = require("./routes/api/users")
 const karyawan = require("./routes/api/employees")
 const profile = require("./routes/api/profile")
-// const post = require("./routes/api/posts")
 
 // DB Config
 const db = require("./config/keys").mongoURI
@@ -42,6 +41,9 @@ require("./config/passport")(passport)
 app.use("/api/users", user)
 app.use("/api/employees", karyawan)
 app.use("/api/profile", profile)
+
+// Access public folder
+app.use(express.static(path.resolve("client/public/img/profilePicture")))
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
