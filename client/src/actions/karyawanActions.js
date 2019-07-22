@@ -3,10 +3,9 @@ import {
   ADD_EMPLOYEE,
   GET_ERRORS,
   GET_EMPLOYEES,
-  PROFILE_LOADING,
-  DELETE_EMPLOYEE,
   CLEAR_ERRORS,
-  GET_EMPLOYEE
+  GET_EMPLOYEE,
+  EMPLOYEE_LOADING
 } from "./types"
 
 // adding employee
@@ -29,13 +28,33 @@ export const addEmployee = (postData, history) => dispatch => {
     )
 }
 
-// update karyawan
+// update karyawan && upload image
 export const updateKaryawan = (id, postData, history) => dispatch => {
-  // dispatch(clearErrors())
+  dispatch(clearErrors())
   axios
     .post(`/api/employees/id/${id}`, postData)
     .then(res => {
       history.push("/karyawan-list")
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+// update karyawan && upload image
+export const uploadImage = (nip, formData, config) => dispatch => {
+  dispatch(clearErrors())
+  axios
+    .post(`/api/employees/upload/${nip}`, formData, config)
+    .then(res => {
+      alert("Upload Berhasil!")
+      dispatch({
+        type: GET_EMPLOYEE,
+        payload: res.data
+      })
     })
     .catch(err =>
       dispatch({
@@ -64,8 +83,27 @@ export const getEmployees = () => dispatch => {
     )
 }
 
-// get employee by id
-export const getEmployee = id => dispatch => {
+// get employee by NIP
+export const getEmployee = nip => dispatch => {
+  dispatch(setPostLoading())
+  axios
+    .get(`/api/employees/nip/${nip}`)
+    .then(res =>
+      dispatch({
+        type: GET_EMPLOYEE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      })
+    )
+}
+
+// get employee by ID
+export const getEmployeeById = id => dispatch => {
   dispatch(setPostLoading())
   axios
     .get(`/api/employees/id/${id}`)
@@ -104,7 +142,7 @@ export const deleteEmployee = (id, history) => dispatch => {
 
 export const setPostLoading = () => {
   return {
-    type: PROFILE_LOADING
+    type: EMPLOYEE_LOADING
   }
 }
 

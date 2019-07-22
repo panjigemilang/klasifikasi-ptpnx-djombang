@@ -2,46 +2,57 @@ import React, { Component } from "react"
 import "../../css/EditKaryawan.css"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
-import { getEmployee, updateKaryawan } from "../../actions/karyawanActions"
+import {
+  getEmployee,
+  updateKaryawan,
+  uploadImage
+} from "../../actions/karyawanActions"
 import { PropTypes } from "prop-types"
 import Spinner from "../Common/Spinner"
 import isEmpty from "../../validations/is-empty"
 import TextFieldGroupSm from "../Common/TextFieldGroupSm"
-import validationEmployee from "../../validations/employee"
+import SelectListGroup from "../Common/SelectListGroup"
 
 const mapStateToProps = state => ({
-  karyawan: state.karyawan
+  karyawan: state.karyawan,
+  auth: state.auth,
+  errors: state.errors
 })
 
 class EditKaryawan extends Component {
   constructor() {
     super()
     this.state = {
-      pertama: 20,
-      kedua: 13,
-      ketiga: 12,
-      keempat: 11,
-      kelima: 14,
-      keenam: 15,
-      ketujuh: 15,
       nip: "",
       name: "",
+      jabatan: "",
       departemen: "",
       jenisKelamin: "",
-      nilai: "-",
+      statusPernikahan: "",
+      noTelepon: "",
+      tempatLahir: "",
+      alamat: "",
+      tanggalLahir: "",
+      fotoProfil: "",
       errors: {}
     }
   }
 
   componentDidMount() {
-    if (this.props.match.params.user_id) {
-      this.props.getEmployee(this.props.match.params.user_id)
+    if (this.props.match.params.nip) {
+      this.props.getEmployee(this.props.match.params.nip)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
+      console.log("ini nextprops errors")
+      console.log(nextProps.errors)
+
       this.setState({ errors: nextProps.errors })
+
+      console.log("ini state errors")
+      console.log(this.state.errors)
     }
 
     // get the current profile
@@ -51,40 +62,42 @@ class EditKaryawan extends Component {
       // If profile field does exists, fill the input with the current profile
       profile.nip = !isEmpty(profile.nip) ? profile.nip : ""
       profile.name = !isEmpty(profile.name) ? profile.name : ""
+      profile.jabatan = !isEmpty(profile.jabatan) ? profile.jabatan : ""
       profile.departemen = !isEmpty(profile.departemen)
         ? profile.departemen
         : ""
       profile.jenisKelamin = !isEmpty(profile.jenisKelamin)
         ? profile.jenisKelamin
         : ""
-      profile.nilai = !isEmpty(profile.nilai) ? profile.nilai : "-"
+      profile.statusPernikahan = !isEmpty(profile.statusPernikahan)
+        ? profile.statusPernikahan
+        : ""
+      profile.noTelepon = !isEmpty(profile.noTelepon) ? profile.noTelepon : ""
+      profile.tempatLahir = !isEmpty(profile.tempatLahir)
+        ? profile.tempatLahir
+        : ""
+      profile.alamat = !isEmpty(profile.alamat) ? profile.alamat : ""
+      profile.tanggalLahir = !isEmpty(profile.tanggalLahir)
+        ? profile.tanggalLahir
+        : ""
+      profile.fotoProfil = !isEmpty(profile.fotoProfil)
+        ? profile.fotoProfil
+        : ""
 
       this.setState({
         nip: profile.nip,
         name: profile.name,
+        jabatan: profile.jabatan,
         departemen: profile.departemen,
         jenisKelamin: profile.jenisKelamin,
-        nilai: profile.nilai
+        statusPernikahan: profile.statusPernikahan,
+        noTelepon: profile.noTelepon,
+        tempatLahir: profile.tempatLahir,
+        alamat: profile.alamat,
+        tanggalLahir: profile.tanggalLahir,
+        fotoProfil: profile.fotoProfil
       })
     }
-  }
-
-  querySelectParent(i) {
-    let arr = []
-    document.querySelectorAll(`.parent${i} input`).forEach(val => {
-      if (val.checked) arr.push(val.value)
-    })
-
-    return arr
-  }
-
-  queryCheckInput() {
-    let arr = []
-    document.querySelectorAll("form.form-check input").forEach(val => {
-      arr.push(val.value)
-    })
-
-    return arr
   }
 
   onChange(e) {
@@ -93,662 +106,320 @@ class EditKaryawan extends Component {
     })
   }
 
-  onCheck(e) {
-    e.preventDefault()
+  onChangeUpload(e) {
+    let files = e.target.files[0]
+    document.getElementById("label-span").innerHTML = files.name
+    document.getElementById("btn-submit").style.display = "block"
 
-    const arr = this.queryCheckInput(e)
+    console.log("files")
+    console.log(files)
 
-    const data = {
-      nip: arr[0],
-      name: arr[1],
-      departemen: arr[2],
-      jenisKelamin: arr[3]
-    }
-
-    const { errors, isValid } = validationEmployee(data)
-
-    if (!isValid) {
-      this.setState({
-        errors: errors
-      })
-    }
+    this.setState({
+      fotoProfil: e.target.files[0]
+    })
   }
 
   onSubmit(e, id) {
     e.preventDefault()
 
-    // Logic sementara
-    const [nilai1, nilai2, nilai3, nilai4, nilai5, nilai6, nilai7, total] = [
-      [],
-      [],
-      [],
-      [],
-      [],
-      [],
-      [],
-      []
-    ]
-
-    nilai1.push(this.querySelectParent(1))
-    nilai2.push(this.querySelectParent(2))
-    nilai3.push(this.querySelectParent(3))
-    nilai4.push(this.querySelectParent(4))
-    nilai5.push(this.querySelectParent(5))
-    nilai6.push(this.querySelectParent(6))
-    nilai7.push(this.querySelectParent(7))
-
-    // logical calculate
-    total.push(
-      nilai1[0] * this.state.pertama +
-        nilai2[0] * this.state.kedua +
-        nilai3[0] * this.state.ketiga +
-        nilai4[0] * this.state.keempat +
-        nilai5[0] * this.state.kelima +
-        nilai6[0] * this.state.keenam +
-        nilai7[0] * this.state.ketujuh
-    )
-
-    const nilaiAkhir = this.checkGrade(total[0])
-
     const profileData = {
       nip: this.state.nip,
       name: this.state.name,
+      jabatan: this.state.jabatan,
       departemen: this.state.departemen,
       jenisKelamin: this.state.jenisKelamin,
-      nilai: nilaiAkhir
+      statusPernikahan: this.state.statusPernikahan,
+      noTelepon: this.state.noTelepon,
+      tempatLahir: this.state.tempatLahir,
+      alamat: this.state.alamat,
+      tanggalLahir: this.state.tanggalLahir,
+      fotoProfil: this.state.fotoProfil
     }
 
     this.props.updateKaryawan(id, profileData, this.props.history)
   }
 
-  checkGrade(nilai) {
-    if (nilai > 80) {
-      return `A ~ ${nilai}`
-    } else if (nilai <= 80 && nilai > 75) {
-      return `B+ ~ ${nilai}`
-    } else if (nilai <= 75 && nilai > 69) {
-      return `B ~ ${nilai}`
-    } else if (nilai <= 69 && nilai > 60) {
-      return `C+ ~ ${nilai}`
-    } else if (nilai <= 60 && nilai > 55) {
-      return `C ~ ${nilai}`
-    } else if (nilai <= 55 && nilai > 50) {
-      return `D+ ~ ${nilai}`
-    } else if (nilai <= 50 && nilai > 44) {
-      return `D ~ ${nilai}`
-    } else {
-      return `E ~ ${nilai}`
+  onSubmitProfile(e) {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append(this.state.nip, this.state.fotoProfil)
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
     }
+
+    this.props.uploadImage(this.state.nip, formData, config, this.props.history)
   }
 
   render() {
-    // console.log("ini props ada id kaga yak");
-    // console.log(this.props.karyawan.loading);
+    // Select options for status
+    const optionGender = [
+      { label: "* Select Gender", value: 0 },
+      { label: "pria", value: "pria" },
+      { label: "wanita", value: "wanita" }
+    ]
 
-    // console.log(this.props.match.params.user_id);
+    const optionStatus = [
+      { label: "* Select Status", value: 0 },
+      { label: "kawin", value: "kawin" },
+      { label: "belum kawin", value: "belum kawin" }
+    ]
 
     const { errors } = this.state
-    const { employee, loading } = this.props.karyawan
+    const { isAuthenticated } = this.props.auth
+    const { loading, employee } = this.props.karyawan
+
+    console.log("ini errors nye nih")
+    console.log(errors.noTelepon)
+
+    const image = !isEmpty(employee.fotoProfil)
+      ? process.env.PUBLIC_URL + `/img/profilePicture/${employee.fotoProfil}`
+      : process.env.PUBLIC_URL + `/img/profilePicture/default.jpg`
+
     let editKaryawanContent
 
     if (loading) {
-      editKaryawanContent = <Spinner />
+      editKaryawanContent = <Spinner height="88vh" />
     } else {
       editKaryawanContent = (
-        <div className="wrapper-ek img-fluid">
+        <div className="wrapper-ek">
+          {/* Back Button */}
           <div className="row">
             <div className="container">
               <br />
               <br />
               <br />
               <br />
+              <br />
+              <br />
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <a
                     href="/karyawan-list"
-                    className="btn btn-light mb-3 float-left"
+                    className="btn btn-light mb-3 float-left kembali"
                   >
                     Kembali
                   </a>
                 </div>
-                <div className="col-md-6" />
+                <div className="col-md-12" />
               </div>
               <br />
-              <h1 className="display-4 text-center">Edit Data Karyawan</h1>
-              <br />
-              <h4>Detail Karyawan</h4>
+              <h1 className="display-4 text-center tambah">Data Karyawan</h1>
               <br />
             </div>
           </div>
 
-          {/* Row Pertama */}
+          {/* Row Pertama | FOTO PROFILE */}
           <div className="row">
-            <div className="container">
-              <form
-                onSubmit={e => this.onCheck(e)}
-                className="form-group form-check"
-                name="form-check"
-              >
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">NIP</th>
-                      <th scope="col">Nama</th>
-                      <th scope="col">Departemen</th>
-                      <th scope="col">Jenis Kelamin</th>
-                      <th />
-                    </tr>
-                  </thead>
+            <div className="col-lg-1" />
+            <div className="col-lg-3 col-md-6 col-sm-12">
+              <div className="container">
+                <div className="card" id="card-pp">
+                  <form onSubmit={e => this.onSubmitProfile(e)}>
+                    <img
+                      className="card-img-top"
+                      id="pp"
+                      src={image}
+                      alt="foto_profil.jpg"
+                    />
 
-                  <tbody>
-                    <tr>
-                      <td>
-                        <TextFieldGroupSm
-                          placeHolder="* NIP"
-                          name="nip"
-                          value={this.state.nip}
-                          onChange={e => this.onChange(e)}
-                          errors={errors.nip}
-                          disabled={true}
+                    {isAuthenticated ? (
+                      <React.Fragment>
+                        <input
+                          name={employee.nip}
+                          type="file"
+                          id="upload-file"
+                          onChange={e => this.onChangeUpload(e)}
                         />
-                      </td>
-                      <td>
-                        <TextFieldGroupSm
-                          placeHolder="* Name"
-                          name="name"
-                          value={this.state.name}
-                          onChange={e => this.onChange(e)}
-                          errors={errors.name}
-                        />
-                      </td>
-                      <td>
-                        <TextFieldGroupSm
-                          placeHolder="* Departemen"
-                          name="departemen"
-                          value={this.state.departemen}
-                          onChange={e => this.onChange(e)}
-                          errors={errors.departemen}
-                        />
-                      </td>
-                      <td>
-                        <TextFieldGroupSm
-                          placeHolder="* Jenis Kelamin"
-                          name="jenisKelamin"
-                          value={this.state.jenisKelamin}
-                          onChange={e => this.onChange(e)}
-                          errors={errors.jenisKelamin}
-                        />
-                      </td>
-                      <td>
-                        <button type="submit" className="btn btn-info mr-1">
-                          check
+                        <label
+                          for="upload-file"
+                          // onChange={e => this.onChange(e)}
+                        >
+                          <i class="fas fa-file-image" /> &nbsp;
+                          <span id="label-span"> Choose a profile picture</span>
+                        </label>
+                      </React.Fragment>
+                    ) : null}
+
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      id="btn-submit"
+                    >
+                      Submit Image
+                    </button>
+                    {/* If Errors found */}
+                    {!isEmpty(errors.fotoProfil) ? (
+                      <span id="pp-error" className="text-red">
+                        {errors.fotoProfil}
+                      </span>
+                    ) : null}
+
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        <strong>NIP: </strong>
+                        <p> {this.state.nip}</p>
+                      </h5>
+                      <p className="card-text">
+                        <strong>Name: </strong>
+                        <p className="font-weight-light"> {this.state.name}</p>
+                      </p>
+                      <p className="card-text">
+                        <strong>Departemen: </strong>
+                        <p className="font-weight-light">
+                          {this.state.departemen}
+                        </p>
+                      </p>
+                      <p className="card-text">
+                        <strong>Jabatan: </strong>
+                        <p className="font-weight-light">
+                          {this.state.jabatan}
+                        </p>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-12">
+              <div className="container">
+                <div className="card card-form">
+                  {/* Form kedua | KARYAWAN FIELD */}
+                  <form onSubmit={e => this.onSubmit(e, employee._id)}>
+                    <TextFieldGroupSm
+                      placeHolder="* NIP"
+                      name="nip"
+                      value={this.state.nip}
+                      onChange={e => this.onChange(e)}
+                      disabled={true}
+                      info="Employee's NIP"
+                      errors={errors.nip}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Name"
+                      name="name"
+                      value={this.state.name}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's name"
+                      disabled={!isAuthenticated}
+                      errors={errors.name}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Departemen"
+                      name="departemen"
+                      value={this.state.departemen}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's department"
+                      disabled={!isAuthenticated}
+                      errors={errors.departemen}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Jabatan"
+                      name="jabatan"
+                      value={this.state.jabatan}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's position"
+                      disabled={!isAuthenticated}
+                      errors={errors.jabatan}
+                    />
+
+                    <SelectListGroup
+                      placeHolder="* Select employee status"
+                      name="statusPernikahan"
+                      value={this.state.statusPernikahan}
+                      onChange={e => this.onChange(e)}
+                      options={optionStatus}
+                      info="Employee's status"
+                      disabled={!isAuthenticated}
+                      errors={errors.statusPernikahan}
+                    />
+
+                    <SelectListGroup
+                      placeHolder="* Jenis Kelamin"
+                      name="jenisKelamin"
+                      value={this.state.jenisKelamin}
+                      onChange={e => this.onChange(e)}
+                      options={optionGender}
+                      info="Employee's gender"
+                      disabled={!isAuthenticated}
+                      errors={errors.jenisKelamin}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Nomor telepon"
+                      name="noTelepon"
+                      value={this.state.noTelepon}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's phone number"
+                      disabled={!isAuthenticated}
+                      errors={errors.noTelepon}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Alamat"
+                      name="alamat"
+                      value={this.state.alamat}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's address"
+                      disabled={!isAuthenticated}
+                      errors={errors.alamat}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Tempat Lahir"
+                      name="tempatLahir"
+                      value={this.state.tempatLahir}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's birth place"
+                      disabled={!isAuthenticated}
+                      errors={errors.tempatLahir}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* Tanggal Lahir"
+                      name="tanggalLahir"
+                      type="date"
+                      value={this.state.tanggalLahir.match(
+                        /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/g
+                      )}
+                      onChange={e => this.onChange(e)}
+                      info="Employee's birthdate"
+                      disabled={!isAuthenticated}
+                      errors={errors.tanggalLahir}
+                    />
+
+                    {isAuthenticated ? (
+                      <div id="tombol-container">
+                        <a
+                          href="/karyawan-list"
+                          className="btn btn-danger float-right"
+                        >
+                          Batal
+                        </a>
+                        <button
+                          type="submit"
+                          name="button_save"
+                          className="btn btn-primary float-right"
+                          value="Simpan"
+                        >
+                          Simpan
                         </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
-            </div>
-          </div>
-
-          {/* Row ke 2 */}
-          <div className="row">
-            <div className="container">
-              <br />
-              <h4>Evaluasi Kerja</h4>
-              <br />
-              <div className="row">
-                <div className="col-lg-3 col-md-6">
-                  <h4
-                    className="text-white"
-                    style={{ backgroundColor: "#8a8d8a", padding: "4px" }}
-                  >
-                    Keterangan
-                  </h4>
-                  <p
-                    className="description"
-                    style={{ backgroundColor: "#99fcb7" }}
-                  >
-                    1. Selalu / sangat baik
-                  </p>
-                  <p
-                    className="description"
-                    style={{ backgroundColor: "#85f489" }}
-                  >
-                    {" "}
-                    2. Sering / baik
-                  </p>
-                  <p
-                    className="description"
-                    style={{ backgroundColor: "#effc56" }}
-                  >
-                    {" "}
-                    3. Kadang-kadang / kurang
-                  </p>
-                  <p
-                    className="description text-white"
-                    style={{ backgroundColor: "#ff5d5d" }}
-                  >
-                    {" "}
-                    4. Tidak pernah / kurang sekali
-                  </p>
-                </div>
-                <div className="col-lg-3 col-md-6">
-                  {/* Triwulan &nbsp;
-                  <select>
-                    <option value="1">Pertama</option>
-                    <option value="0.75">Kedua</option>
-                    <option value="0.5">Ketiga</option>
-                    <option value="0.25">Keempat</option>
-                  </select> */}
-                </div>
-                <div className="col-lg-3 col-md-6" />
-                <div className="col-lg-3 col-md-6">
-                  {/* Tahun &nbsp;
-                  <select>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                  </select> */}
+                      </div>
+                    ) : null}
+                  </form>
                 </div>
               </div>
             </div>
+            <div className="col-lg-2" />
           </div>
 
-          {/* Row ketiga */}
-          <div className="row">
-            <div className="container">
-              <form
-                onSubmit={e => this.onSubmit(e, employee._id)}
-                className="form-group"
-                name="form-submit"
-              >
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Uraian</th>
-                      <th scope="col">Bobot Penilaian (%)</th>
-                      <th scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-
-                  {/* Ganti bobot penilaian disini */}
-                  <tbody>
-                    {/* Row 1 */}
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Pengetahuan akan Pekerjaan</td>
-                      <td>{this.state.pertama}</td>
-                      <td className="parent1">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio1"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio1"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio1"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio1"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 2 */}
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Inisiatif Kerja</td>
-                      <td>{this.state.kedua}</td>
-                      <td className="parent2">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio2"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio2"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio2"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio2"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 3 */}
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Produktifitas dan Efisiensi Kerja</td>
-                      <td>{this.state.ketiga}</td>
-                      <td className="parent3">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio3"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio3"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio3"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio3"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 4 */}
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Komunikasi</td>
-                      <td>{this.state.keempat}</td>
-                      <td className="parent4">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio4"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio4"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio4"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio4"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 5 */}
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Kerjasama</td>
-                      <td>{this.state.kelima}</td>
-                      <td className="parent5">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio5"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio5"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio5"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio5"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 6 */}
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Tanggung Jawab dan Dedikasi</td>
-                      <td>{this.state.keenam}</td>
-                      <td className="parent6">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio6"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio6"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio6"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio6"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Row 7 */}
-                    <tr>
-                      <th scope="row">7</th>
-                      <td>Disiplin dan Kehadiran</td>
-                      <td>{this.state.ketujuh}</td>
-                      <td className="parent7">
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio1"
-                            name="optradio7"
-                            value="1"
-                          />{" "}
-                          1
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio2"
-                            name="optradio7"
-                            value="0.75"
-                          />{" "}
-                          2
-                        </div>
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio3"
-                            name="optradio7"
-                            value="0.5"
-                          />{" "}
-                          3
-                        </div>
-
-                        <div className="form-check-inline">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="radio4"
-                            name="optradio7"
-                            value="0.25"
-                          />{" "}
-                          4
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div id="tombol-container" className="container">
-                  <a
-                    href="/karyawan-list"
-                    className="btn btn-danger tombol-edit"
-                    style={{ display: "block", float: "right" }}
-                  >
-                    Batal
-                  </a>
-                  <button
-                    type="submit"
-                    className="btn btn-primary tombol-edit"
-                    style={{ display: "block" }}
-                  >
-                    Simpan
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div className="row" />
+          <br />
         </div>
       )
     }
@@ -759,10 +430,11 @@ class EditKaryawan extends Component {
 EditKaryawan.propTypes = {
   karyawan: PropTypes.object.isRequired,
   getEmployee: PropTypes.func.isRequired,
-  updateKaryawan: PropTypes.func.isRequired
+  updateKaryawan: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired
 }
 
 export default connect(
   mapStateToProps,
-  { getEmployee, updateKaryawan }
+  { getEmployee, updateKaryawan, uploadImage }
 )(withRouter(EditKaryawan))

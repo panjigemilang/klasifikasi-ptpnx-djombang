@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
-const Schema = mongoose.Schema({
+const Schema = mongoose.Schema
+
+const KaryawanSchema = new Schema({
   nip: {
     type: String,
     required: true
@@ -12,12 +14,33 @@ const Schema = mongoose.Schema({
     type: String,
     required: true
   },
+  jabatan: {
+    type: String,
+    required: true
+  },
+  statusPernikahan: {
+    type: String,
+    required: true
+  },
   jenisKelamin: {
     type: String,
     required: true
   },
-  nilai: {
+  noTelepon: {
     type: String
+  },
+  alamat: {
+    type: String
+  },
+  tempatLahir: {
+    type: String
+  },
+  tanggalLahir: {
+    type: Date
+  },
+  fotoProfil: {
+    type: String,
+    default: ""
   },
   date: {
     type: Date,
@@ -25,4 +48,4 @@ const Schema = mongoose.Schema({
   }
 })
 
-module.exports = User = mongoose.model("karyawan", Schema)
+module.exports = Karyawan = mongoose.model("karyawan", KaryawanSchema)

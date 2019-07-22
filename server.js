@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 // Routes
 const user = require("./routes/api/users")
 const karyawan = require("./routes/api/employees")
-// const profile = require("./routes/api/profile")
+const profile = require("./routes/api/profile")
 // const post = require("./routes/api/posts")
 
 // DB Config
@@ -41,6 +41,7 @@ require("./config/passport")(passport)
 // use routes
 app.use("/api/users", user)
 app.use("/api/employees", karyawan)
+app.use("/api/profile", profile)
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {

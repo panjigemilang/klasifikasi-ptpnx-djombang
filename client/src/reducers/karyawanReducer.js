@@ -1,5 +1,5 @@
 import {
-  PROFILE_LOADING,
+  EMPLOYEE_LOADING,
   DELETE_EMPLOYEE,
   ADD_EMPLOYEE,
   GET_EMPLOYEES,
@@ -14,7 +14,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case PROFILE_LOADING:
+    case EMPLOYEE_LOADING:
       return {
         ...state,
         loading: true

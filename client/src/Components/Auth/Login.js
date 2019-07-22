@@ -61,7 +61,7 @@ class Login extends Component {
     const { errors } = this.state
 
     return (
-      <div className="login img-fluid">
+      <div className="login">
         <br />
         <div className="container">
           <div className="row">

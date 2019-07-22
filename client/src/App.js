@@ -23,6 +23,10 @@ import setAuthToken from "./utils/setAuthToken"
 import { setCurrentUser, logout } from "./actions/authActions"
 import jwt_decode from "jwt-decode"
 import Dashboard from "./Components/Dashboard/Dashboard"
+import Profile from "./Components/Profile/Profile"
+import AddEducation from "./Components/Creds/AddEducation"
+import AddExperience from "./Components/Creds/AddExperience"
+import AddAllowance from "./Components/Creds/AddAllowance"
 
 if (localStorage.jwtToken) {
   // set token to authorization
@@ -50,10 +54,13 @@ function App() {
         <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
-
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/karyawan-list" component={KaryawanFeed} />
+          <Route exact path="/karyawan/nip/:nip" component={EditKaryawan} />
+          <Route exact path="/upload-img" component={Images} />
+
+          {/* Private Route */}
           <Switch>
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
           </Switch>
@@ -63,11 +70,31 @@ function App() {
           <Switch>
             <PrivateRoute
               exact
-              path="/edit-karyawan/id/:user_id"
-              component={EditKaryawan}
+              path="/profile/add-education/:user_id"
+              component={AddEducation}
             />
           </Switch>
-          <Route exact path="/upload-img" component={Images} />
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/profile/add-experience/:user_id"
+              component={AddExperience}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/profile/add-allowance/:user_id"
+              component={AddAllowance}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/profile/id/:user_id"
+              component={Profile}
+            />
+          </Switch>
 
           <Footer />
         </div>

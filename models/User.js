@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
-const Schema = mongoose.Schema({
+const Schema = mongoose.Schema
+
+const UserSchema = new Schema({
   nip: {
     type: String,
     required: true
@@ -31,4 +33,4 @@ const Schema = mongoose.Schema({
 
 // })
 
-module.exports = User = mongoose.model("users", Schema)
+module.exports = User = mongoose.model("users", UserSchema)

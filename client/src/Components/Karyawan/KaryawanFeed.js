@@ -46,8 +46,12 @@ class KaryawanFeed extends Component {
                     <th scope="col">NIP</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Departemen</th>
+                    <th scope="col">Jabatan</th>
                     <th scope="col">Jenis Kelamin</th>
-                    <th scope="col">Nilai</th>
+                    <th scope="col">Tempat Lahir</th>
+                    <th scope="col">Tanggal Lahir</th>
+                    <th scope="col">Alamat Rumah</th>
+                    <th scope="col">Nomor Telepon</th>
                     <th scope="col" />
                   </tr>
                 </thead>

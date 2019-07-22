@@ -24,7 +24,7 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />
     } else {
       dashboardContent = (
-        <div className="wrapper-d">
+        <div className="wrapper-d" id="main">
           <div className="row">
             <div className="container text-white">
               <br />

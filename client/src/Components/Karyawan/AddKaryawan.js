@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import "../../css/TambahKaryawan.css"
 import TextFieldGroup from "../Common/TextFieldGroup"
+import SelectListGroup from "../Common/SelectListGroup"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { addEmployee } from "../../actions/karyawanActions"
@@ -17,9 +18,14 @@ class AddKaryawan extends Component {
     this.state = {
       nip: "",
       name: "",
+      jabatan: "",
       departemen: "",
+      statusPernikahan: "",
+      noTelepon: "",
       jenisKelamin: "",
-      nilai: "-",
+      tempatLahir: "",
+      alamat: "",
+      tanggalLahir: "",
       errors: {}
     }
   }
@@ -46,14 +52,32 @@ class AddKaryawan extends Component {
       nip: this.state.nip,
       name: this.state.name,
       departemen: this.state.departemen,
+      jabatan: this.state.jabatan,
+      statusPernikahan: this.state.statusPernikahan,
+      noTelepon: this.state.noTelepon,
       jenisKelamin: this.state.jenisKelamin,
-      nilai: this.state.nilai
+      tempatLahir: this.state.tempatLahir,
+      alamat: this.state.alamat,
+      tanggalLahir: this.state.tanggalLahir
     }
 
     this.props.addEmployee(newUser, this.props.history)
   }
 
   render() {
+    // Select options for status
+    const optionGender = [
+      { label: "* Select Gender", value: 0 },
+      { label: "pria", value: "pria" },
+      { label: "wanita", value: "wanita" }
+    ]
+
+    const optionStatus = [
+      { label: "* Select Status", value: 0 },
+      { label: "kawin", value: "kawin" },
+      { label: "belum kawin", value: "belum kawin" }
+    ]
+
     const { errors } = this.state
 
     return (
@@ -79,6 +103,8 @@ class AddKaryawan extends Component {
             <h1 className="display-4 text-center tambah">
               Tambah Data Karyawan
             </h1>
+            <br />
+            <h5>* = required</h5>
             <br />
 
             <form onSubmit={e => this.onSubmit(e)}>
@@ -110,13 +136,70 @@ class AddKaryawan extends Component {
               />
 
               <TextFieldGroup
-                name="jenisKelamin"
+                name="jabatan"
                 type="text"
-                placeHolder="* pria/wanita"
+                placeHolder="* Jabatan"
+                value={this.state.jabatan}
+                onChange={e => this.onChange(e)}
+                errors={errors.jabatan}
+              />
+
+              <SelectListGroup
+                placeHolder="* Select your Status"
+                name="statusPernikahan"
+                value={this.state.statusPernikahan}
+                onChange={e => this.onChange(e)}
+                options={optionStatus}
+                info="Give us an idea with your Status"
+                errors={errors.statusPernikahan}
+              />
+
+              <SelectListGroup
+                placeHolder="* Select your gender"
+                name="jenisKelamin"
                 value={this.state.jenisKelamin}
                 onChange={e => this.onChange(e)}
+                options={optionGender}
                 errors={errors.jenisKelamin}
               />
+
+              <TextFieldGroup
+                name="noTelepon"
+                type="text"
+                placeHolder="Nomor telepon"
+                value={this.state.noTelepon}
+                onChange={e => this.onChange(e)}
+                errors={errors.noTelepon}
+              />
+
+              <TextFieldGroup
+                name="alamat"
+                type="text"
+                placeHolder="Alamat tempat tinggal"
+                value={this.state.alamat}
+                onChange={e => this.onChange(e)}
+                errors={errors.alamat}
+              />
+
+              <TextFieldGroup
+                name="tempatLahir"
+                type="text"
+                placeHolder="Tempat kelahiran"
+                value={this.state.tempatLahir}
+                onChange={e => this.onChange(e)}
+                errors={errors.tempatLahir}
+              />
+
+              <TextFieldGroup
+                name="tanggalLahir"
+                type="date"
+                value={this.state.tanggalLahir}
+                onChange={e => this.onChange(e)}
+                errors={errors.tanggalLahir}
+                info="please input your birthdate."
+              />
+
+              {/* Foto Profile upload */}
 
               <input type="submit" className="btn btn-info btn-block mt-4" />
             </form>

@@ -6,7 +6,8 @@
   background-position: right;
   width: 100%;
   max-width: 100%;
-  min-height: 87vh;
+  min-height: 90%;
+  overflow-x: scroll;
   z-index: -1;
 }
 
@@ -16,7 +17,15 @@
 }
 
 .table {
-  background-color: antiquewhite !important;
+  background-color: rgb(238, 236, 234) !important;
+}
+
+.table tbody td {
+  border-right: 0.5px rgba(68, 121, 145, 0.25) solid;
+}
+
+.table tbody tr {
+  border-bottom: 0.5px rgba(68, 121, 145, 0.25) solid;
 }
 
 #btn-add-karyawan {
@@ -27,4 +36,10 @@
 .push {
   background: black;
   height: 5vh;
+}
+
+table li button,
+table li a {
+  margin: 1vh 0;
+  width: 100%;
 }

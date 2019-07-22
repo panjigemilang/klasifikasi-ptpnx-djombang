@@ -1,0 +1,141 @@
+/* Body */
+.profile {
+  background: url("../img/Artboard 1.png") no-repeat;
+  background-size: contain;
+  background-position: top;
+  width: 100%;
+  max-width: 100%;
+  min-height: 90vh;
+  z-index: -1;
+}
+
+/* COMMON */
+.wrapper-pp {
+  min-height: 90vh;
+}
+
+h1.tambah {
+  text-shadow: 2px 2px 3px white;
+}
+
+.btn-creds a {
+  width: 100%;
+}
+
+.profile #custom-text {
+  background-color: rgb(13, 141, 88, 0.85);
+  width: 100%;
+  padding: 2vh;
+}
+
+.profile .list-group-item {
+  box-shadow: 0 0 1.5em rgb(123, 224, 191, 0.5);
+  /* background-image:  */
+}
+
+.pr-creds {
+  margin: 3vh 0;
+}
+
+.pr-creds button.btn-sm {
+  width: 33px;
+}
+
+/* IMAGE PP */
+.profile img {
+  object-fit: cover;
+}
+
+.profile img#pp {
+  border: 4px #2ecc71 solid;
+  width: 200px;
+  height: 200px;
+}
+
+.profile .card {
+  margin: 0rem auto;
+  max-width: 18rem;
+  padding: 1rem 0;
+}
+
+/* CARD */
+.profile .card-title {
+  margin: 0.75rem 0 0 !important;
+}
+
+.card-custom {
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 1.4rem;
+  box-shadow: 0 0 1.5em rgb(123, 224, 191, 0.5);
+}
+
+@media only screen and (min-width: 1200px) {
+  .profile img {
+    width: 135px;
+    height: 135px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .profile .container {
+    max-width: 900px;
+  }
+  .strong-desc {
+    font-size: 15px;
+    min-height: 3rem;
+  }
+
+  .p-card {
+    font-size: 14px;
+  }
+
+  .profile img {
+    width: 135px;
+    height: 135px;
+  }
+}
+
+/* MEDIUM SIZE */
+@media only screen and (max-width: 768px) {
+  .profile .container {
+    max-width: 900px;
+  }
+
+  h1.tambah {
+    font-size: 2.5rem;
+  }
+
+  .profile img {
+    width: 135px;
+    height: 135px;
+  }
+
+  /* CARD */
+  .profile .strong-desc {
+    font-size: 10px;
+  }
+
+  .p-card {
+    font-size: 10px;
+  }
+
+  .card-custom {
+    padding: 1.4rem 0.5rem 0 1.7rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  /* CARD */
+  h1.tambah {
+    font-size: 2rem;
+  }
+
+  .profile .strong-desc {
+    font-size: 14px;
+  }
+
+  .p-card {
+    font-size: 14px;
+  }
+}

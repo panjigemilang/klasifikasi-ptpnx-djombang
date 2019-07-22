@@ -1,11 +1,12 @@
 html,
 body {
   height: 100%;
+  width: 100%;
   margin: 0;
   /* overflow-x: hidden; */
 }
 
-/* HEADER */
+/* HEADER NAVBAR */
 .nav-text-color a {
   color: #bef7f5 !important;
   text-shadow: 2px 2px 2px #00741f;
@@ -21,14 +22,75 @@ body {
 
 @media only screen and (max-width: 991px) {
   #nav-bg {
-    position: static;
-    background: rgb(51, 172, 57);
-    background: linear-gradient(
-      90deg,
-      rgba(51, 172, 57, 1) 0%,
-      rgba(27, 177, 0, 1) 73%,
-      rgba(19, 161, 0, 1) 100%
-    );
+  }
+}
+
+.side-nav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  opacity: 0.9;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.side-nav a {
+  padding: 10px 10px 10px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
+}
+
+.side-nav a:hover {
+  color: #fff;
+}
+
+.side-nav .btn-close {
+  position: absolute;
+  top: 0;
+  right: 22px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.btn-close,
+.open-slide {
+  background-color: transparent;
+  border: 0;
+  color: rgb(187, 187, 187);
+  transition: 0.3s ease-out;
+}
+
+.open-slide:hover {
+  cursor: pointer;
+  color: white;
+  font-size: 2rem;
+  animation: 5s ease-in;
+}
+
+.btn-close:hover {
+  font-size: 3rem;
+  cursor: pointer;
+  color: wheat;
+  animation: 5s ease-in;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 991px) {
+  .open-slide {
+    display: none;
   }
 }
 

@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react"
+import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
+import Moment from "react-moment"
 import { PropTypes } from "prop-types"
 import { deleteEmployee } from "../../actions/karyawanActions"
 
@@ -24,23 +25,46 @@ class KaryawanItems extends Component {
           <td>{karyawan.nip}</td>
           <td>{karyawan.name}</td>
           <td>{karyawan.departemen}</td>
+          <td>{karyawan.jabatan}</td>
           <td>{karyawan.jenisKelamin}</td>
-          <td>{karyawan.nilai}</td>
+          <td>{karyawan.tempatLahir}</td>
           <td>
-            <button
-              type="button"
-              className="btn btn-danger mr-1"
-              onClick={() => this.deleteKaryawan(karyawan._id)}
-            >
-              Delete
-            </button>
-            <Link
-              className="btn btn-info"
-              style={{ float: "right" }}
-              to={`/edit-karyawan/id/${karyawan._id}`}
-            >
-              Edit
-            </Link>
+            {karyawan.tanggalLahir ? (
+              <Moment format="DD/MM/YYYY">{karyawan.tanggalLahir}</Moment>
+            ) : (
+              ""
+            )}
+          </td>
+          <td>{karyawan.alamat}</td>
+          <td>{karyawan.noTelepon}</td>
+          <td>
+            <ul style={{ listStyleType: "none" }}>
+              <li>
+                <Link
+                  className="btn btn-sm btn-info"
+                  to={`/karyawan/nip/${karyawan.nip}`}
+                >
+                  View
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="btn btn-sm btn-warning text-white"
+                  to={`/profile/id/${karyawan._id}`}
+                >
+                  Biodata
+                </Link>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-danger"
+                  onClick={() => this.deleteKaryawan(karyawan._id)}
+                >
+                  Delete
+                </button>
+              </li>
+            </ul>
           </td>
         </tr>
       )
@@ -51,9 +75,30 @@ class KaryawanItems extends Component {
           <td>{karyawan.nip}</td>
           <td>{karyawan.name}</td>
           <td>{karyawan.departemen}</td>
+          <td>{karyawan.jabatan}</td>
           <td>{karyawan.jenisKelamin}</td>
-          <td>{karyawan.nilai}</td>
-          <td />
+          <td>{karyawan.tempatLahir}</td>
+          <td>
+            {karyawan.tanggalLahir ? (
+              <Moment format="DD/MM/YYYY">{karyawan.tanggalLahir}</Moment>
+            ) : (
+              ""
+            )}
+          </td>
+          <td>{karyawan.alamat}</td>
+          <td>{karyawan.noTelepon}</td>
+          <td>
+            <ul style={{ listStyleType: "none" }}>
+              <li>
+                <Link
+                  className="btn btn-sm btn-info"
+                  to={`/karyawan/nip/${karyawan.nip}`}
+                >
+                  View
+                </Link>
+              </li>
+            </ul>
+          </td>
         </tr>
       )
     }
