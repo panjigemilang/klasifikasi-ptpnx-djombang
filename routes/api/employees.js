@@ -15,7 +15,7 @@ const validationEmployee = require("../../validation/employee")
 // Set storage engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, path.join(__dirname, "../../client/public/img/profilePicture"))
+    cb(null, "./client/public/img/profilePicture/")
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + path.extname(file.originalname))

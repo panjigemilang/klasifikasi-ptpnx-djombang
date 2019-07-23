@@ -1,9 +1,9 @@
 /* BODY */
 .wrapper-add {
   /* linear-gradient(rgb(46, 45, 45, 0.45), rgb(77, 76, 76, 0.5)), */
-  background: url("../img/Artboard 1.png");
-  background-size: cover;
-  background-position: right;
+  background: url("../img/Artboard 1.png") no-repeat;
+  background-size: contain;
+  background-position: top;
   width: 100%;
   max-width: 100%;
   min-height: 90vh;

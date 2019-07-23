@@ -10,7 +10,7 @@ import {
 
 // adding employee
 export const addEmployee = (postData, history) => dispatch => {
-  // dispatch(clearErrors())
+  dispatch(clearErrors())
   axios
     .post("/api/employees/add-karyawan", postData)
     .then(res => {
