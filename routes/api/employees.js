@@ -31,6 +31,9 @@ router.post(
     session: false
   }),
   (req, res) => {
+    console.log("can i see this")
+    console.log(path.join(__dirname, "../../client/public/img/profilePicture"))
+
     let fotoProfil
     // Init upload
     const upload = multer({

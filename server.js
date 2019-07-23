@@ -43,7 +43,7 @@ app.use("/api/employees", karyawan)
 app.use("/api/profile", profile)
 
 // Access public folder
-app.use(express.static(path.resolve("client/public/img/profilePicture")))
+app.use(express.static(path.resolve("client/public")))
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
