@@ -46,7 +46,7 @@ app.use("/api/profile", profile)
 if (process.env.NODE_ENV === "production") {
   // Access public folder
   app.use(
-    "/client/public/img/profilePicture",
+    "/img/profilePicture",
     express.static(path.join(__dirname, "client/public"))
   )
   // Set static folder
