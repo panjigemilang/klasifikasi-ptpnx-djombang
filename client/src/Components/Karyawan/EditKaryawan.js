@@ -152,6 +152,9 @@ class EditKaryawan extends Component {
   }
 
   render() {
+    console.log("ini publicURL")
+    console.log(process.env.PUBLIC_URL)
+
     // Select options for status
     const optionGender = [
       { label: "* Select Gender", value: 0 },

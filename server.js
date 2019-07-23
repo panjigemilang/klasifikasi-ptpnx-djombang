@@ -42,13 +42,21 @@ app.use("/api/users", user)
 app.use("/api/employees", karyawan)
 app.use("/api/profile", profile)
 
+// Access public folder
+app.use(
+  "/img/profilePicture",
+  express.static(
+    path.resolve(__dirname, "client", "public", "img", "profilePicture")
+  )
+)
+
+console.log("ini path resolve")
+console.log(
+  path.resolve(__dirname, "client", "public", "img", "profilePicture")
+)
+
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
-  // Access public folder
-  app.use(
-    "/img/profilePicture",
-    express.static(path.join(__dirname, "client/public"))
-  )
   // Set static folder
   app.use(express.static("client/build"))
   app.get("*", (req, res) => {
