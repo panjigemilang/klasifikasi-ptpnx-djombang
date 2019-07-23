@@ -102,11 +102,14 @@ class EditKaryawan extends Component {
 
   onChangeUpload(e) {
     let files = e.target.files[0]
-    document.getElementById("label-span").innerHTML = files.name
+    if (isEmpty(files)) {
+      document.getElementById("label-span").innerHTML = files.name
+    }
+
     document.getElementById("btn-submit").style.display = "block"
 
     console.log("files")
-    console.log(files)
+    console.log(isEmpty(files))
 
     this.setState({
       fotoProfil: e.target.files[0]
