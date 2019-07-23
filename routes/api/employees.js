@@ -12,8 +12,6 @@ const path = require("path")
 // validation
 const validationEmployee = require("../../validation/employee")
 
-// destination: "../../client/src/img/profilePicture",
-
 // Set storage engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -31,9 +29,6 @@ router.post(
     session: false
   }),
   (req, res) => {
-    console.log("can i see this")
-    console.log(path.join(__dirname, "../../client/public/img/profilePicture"))
-
     let fotoProfil
     // Init upload
     const upload = multer({

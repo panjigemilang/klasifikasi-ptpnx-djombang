@@ -66,6 +66,9 @@ class Register extends Component {
     return (
       <div className="register img-fluid">
         <br />
+        <br />
+        <br />
+        <br />
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
