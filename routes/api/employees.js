@@ -55,6 +55,9 @@ router.post(
     // Upload image
     upload(req, res, err => {
       if (!err) {
+        console.log("ini req File")
+        console.log(req.file)
+
         const profileField = {}
         profileField.fotoProfil = req.file.filename
 
