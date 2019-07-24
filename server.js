@@ -50,11 +50,6 @@ app.use(
   )
 )
 
-console.log("ini path resolve")
-console.log(
-  path.resolve(__dirname, "client", "public", "img", "profilePicture")
-)
-
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
