@@ -20,8 +20,10 @@ body {
   z-index: 1;
 }
 
-@media only screen and (max-width: 991px) {
-  #nav-bg {
+@media only screen and (max-width: 575px) {
+  nav.navbar img {
+    width: 75px;
+    height: 37.5px;
   }
 }
 

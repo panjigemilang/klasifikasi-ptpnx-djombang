@@ -2,8 +2,8 @@
 #wrapper-kf {
   /* overflow-y: scroll; */
   background: url("../img/Artboard 1.png") no-repeat;
-  background-size: cover;
-  background-position: right;
+  background-size: contain;
+  background-position: top;
   width: 100%;
   max-width: 100%;
   min-height: 90%;
@@ -42,4 +42,13 @@ table li button,
 table li a {
   margin: 1vh 0;
   width: 100%;
+}
+
+@media only screen and (max-width: 991px) {
+}
+
+@media only screen and (max-width: 575px) {
+  h1.display-4 {
+    padding: 0 4rem;
+  }
 }

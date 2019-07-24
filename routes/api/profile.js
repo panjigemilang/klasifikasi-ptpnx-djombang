@@ -121,7 +121,7 @@ router.post(
       }
 
       // add to exp array
-      profile.experiences.unshift(newExp)
+      profile.experiences.push(newExp)
       profile.save().then(err => {
         res.json(profile)
       })
@@ -170,7 +170,7 @@ router.post(
       }
 
       // add to exp array
-      profile.education.unshift(newExp)
+      profile.education.push(newExp)
       profile.save().then(err => {
         res.json(profile)
       })
@@ -210,7 +210,7 @@ router.post(
       }
 
       // add to exp array
-      profile.allowance.unshift(newExp)
+      profile.allowance.push(newExp)
       profile.save().then(err => {
         res.json(profile)
       })

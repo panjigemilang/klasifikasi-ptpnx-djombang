@@ -172,12 +172,13 @@ class EditKaryawan extends Component {
     const { isAuthenticated } = this.props.auth
     const { loading, employee } = this.props.karyawan
 
-    console.log("ini errors nye nih")
-    console.log(errors.noTelepon)
+    console.log("ini apaan jenis nya")
+    console.log(employee.jenisKelamin)
 
     const image = !isEmpty(employee.fotoProfil)
       ? process.env.PUBLIC_URL + `/img/profilePicture/${employee.fotoProfil}`
-      : process.env.PUBLIC_URL + `/img/profilePicture/default.jpg`
+      : process.env.PUBLIC_URL +
+        `/img/profilePicture/${this.state.jenisKelamin.toLowerCase()}.png`
 
     let editKaryawanContent
 

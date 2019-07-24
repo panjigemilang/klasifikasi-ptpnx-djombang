@@ -24,6 +24,7 @@ function AllowanceItem(props) {
         >
           &times;
         </button>
+        <hr />
         <p>
           <strong>
             Status

@@ -20,8 +20,6 @@ class Navbar extends Component {
   }
 
   closeSlideMenu() {
-    console.log("ke klcik kaga si tombol closee!!")
-
     document.getElementById("side-menu").style.width = "0"
     document.querySelector("#side-menu > a").style.transition = "0.5s ease-out"
     document.querySelector("#side-menu > a").style.animation = "5s ease-out"

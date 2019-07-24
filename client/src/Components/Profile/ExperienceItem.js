@@ -38,7 +38,7 @@ function ExperienceItem(props) {
           <strong>Position &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>
           {experience.title}&nbsp;
           {experience.location ? (
-            <React.Fragment>At {experience.location}</React.Fragment>
+            <React.Fragment>at {experience.location}</React.Fragment>
           ) : null}
         </p>
         <p>

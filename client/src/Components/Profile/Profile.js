@@ -29,10 +29,17 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile
     const { employee } = this.props.karyawan
     const loadingKaryawan = this.props.karyawan.loading
+    console.log("ini apaan jenis nya")
+    console.log(employee.jenisKelamin)
 
     const image = !isEmpty(employee.fotoProfil)
       ? process.env.PUBLIC_URL + `/img/profilePicture/${employee.fotoProfil}`
-      : process.env.PUBLIC_URL + `/img/profilePicture/default.jpg`
+      : process.env.PUBLIC_URL +
+        `/img/profilePicture/${
+          !isEmpty(employee.jenisKelamin)
+            ? employee.jenisKelamin.toLowerCase()
+            : null
+        }.png`
 
     let profileContent, poading
     if (loading || loadingKaryawan) {
@@ -160,7 +167,7 @@ class Profile extends Component {
             <div className="col-md-6">
               <Link
                 to="/karyawan-list"
-                className="btn btn-light mb-3 float-left"
+                className="btn btn-light mb-3 float-left kembali"
               >
                 Kembali
               </Link>

@@ -8,7 +8,6 @@ import Footer from "./Components/Layout/Footer"
 import "./App.css"
 
 // Components
-import Images from "./Components/upload/Images"
 import Login from "./Components/Auth/Login"
 import Register from "./Components/Auth/Register"
 import KaryawanFeed from "./Components/Karyawan/KaryawanFeed"
@@ -58,7 +57,6 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/karyawan-list" component={KaryawanFeed} />
           <Route exact path="/karyawan/nip/:nip" component={EditKaryawan} />
-          <Route exact path="/upload-img" component={Images} />
 
           {/* Private Route */}
           <Switch>

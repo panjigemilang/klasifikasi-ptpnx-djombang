@@ -47,7 +47,7 @@ h1.tambah {
 }
 
 .profile img#pp {
-  border: 4px #2ecc71 solid;
+  border: 4px #cef7df solid;
   width: 200px;
   height: 200px;
 }
@@ -79,7 +79,7 @@ h1.tambah {
 
 @media only screen and (max-width: 991px) {
   .profile .container {
-    max-width: 900px;
+    max-width: 90%;
   }
   .strong-desc {
     font-size: 15px;
@@ -98,10 +98,11 @@ h1.tambah {
 
 /* MEDIUM SIZE */
 @media only screen and (max-width: 768px) {
-  .profile .container {
-    max-width: 900px;
+  .profile .kembali {
+    display: none;
   }
 
+  /* PP */
   h1.tambah {
     font-size: 2.5rem;
   }
@@ -113,7 +114,7 @@ h1.tambah {
 
   /* CARD */
   .profile .strong-desc {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .p-card {
@@ -123,19 +124,46 @@ h1.tambah {
   .card-custom {
     padding: 1.4rem 0.5rem 0 1.7rem;
   }
+
+  .btn-creds a {
+    font-size: 12px;
+  }
 }
 
 @media only screen and (max-width: 576px) {
   /* CARD */
+  .card-custom {
+    padding: 1.4rem 1rem 0;
+  }
+
   h1.tambah {
     font-size: 2rem;
   }
 
   .profile .strong-desc {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .p-card {
+    font-size: 18px;
+  }
+
+  /* BTN CREDS */
+  .pr-creds button.btn-sm {
+    font-size: 0.8rem;
+    width: 28px;
+  }
+
+  .btn-creds a {
     font-size: 14px;
+  }
+
+  /* TEXT CREDS */
+  .pr-creds h4 {
+    font-size: 1.2rem;
+  }
+
+  .pr-creds p {
+    font-size: 0.8rem;
   }
 }

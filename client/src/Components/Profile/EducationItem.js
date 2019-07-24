@@ -15,7 +15,10 @@ function EducationItem(props) {
     <React.Fragment>
       <li className="list-group-item">
         <h4 className="font-weight-bold" style={{ display: "inline-block" }}>
-          {education.institution}
+          {education.institution} &nbsp;
+          {education.location ? (
+            <React.Fragment>at {education.location}</React.Fragment>
+          ) : null}
         </h4>
         <button
           type="button"
@@ -25,6 +28,7 @@ function EducationItem(props) {
         >
           &times;
         </button>
+        <hr />
         <p>
           <Moment format="DD/MM/YYYY">{education.from}</Moment>&nbsp;-&nbsp;
           {education.to == null ? (
@@ -34,10 +38,7 @@ function EducationItem(props) {
           )}
         </p>
         <p>
-          <strong>Field of Study : </strong> {education.fieldofstudy}&nbsp;
-          {education.location ? (
-            <React.Fragment>At {education.location}</React.Fragment>
-          ) : null}
+          <strong>Field of Study : </strong> {education.fieldofstudy}
         </p>
         {education.degree ? (
           <p>

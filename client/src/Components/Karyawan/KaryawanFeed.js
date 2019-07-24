@@ -33,7 +33,7 @@ class KaryawanFeed extends Component {
               <br />
               <br />
               <br />
-              <h1 className="display-4">Daftar Karyawan</h1>
+              <h1 className="display-4 tambah">Daftar Karyawan</h1>
               <br />
             </div>
           </div>
