@@ -105,12 +105,8 @@ body {
   background: url("../img/Artboard 1.png") no-repeat;
   background-size: cover;
   background-position: right;
-  width: 100%;
-  max-width: 100%;
-  /*    overflow: hidden;*/
   min-height: 90vh;
   overflow: hidden;
-  /*    width: 100%;*/
   color: #128d6e;
 }
 
@@ -124,7 +120,7 @@ body {
 
 .kotak-konten p {
   text-align: justify;
-  padding: 1vh 14vh;
+  /* padding: 1vh 14vh; */
 }
 
 .carousel {
@@ -146,16 +142,120 @@ footer {
   width: 100%;
   bottom: 0;
   text-align: center;
-  color: white;
-  background: rgb(64, 134, 67);
-  background: linear-gradient(
-    90deg,
-    rgba(64, 134, 67, 1) 0%,
-    rgba(49, 213, 19, 1) 59%,
-    rgba(64, 134, 67, 1) 100%
-  );
+  color: rgb(200, 240, 227);
+  background-color: rgb(44, 44, 44);
 }
 
 #copyright {
-  line-height: 10vh;
+  width: 100%;
+  background-color: #161616;
+}
+
+footer #foot {
+  padding: 1em 0;
+}
+
+footer a {
+  color: white;
+  font-size: 20px;
+  /* padding: 1rem; */
+}
+
+footer img.logo {
+  width: 195px;
+  height: 100px;
+}
+
+.sosmed {
+  padding: 0 10rem;
+}
+
+.sosmed a {
+  font-size: 30px;
+}
+
+#copyright-t {
+  line-height: 7vh;
+}
+
+#about-us {
+  text-align: justify;
+}
+
+.contact {
+  display: inline;
+}
+
+@media only screen and (max-width: 1125px) {
+  h1.tengah {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .kotak-konten {
+    background-color: white;
+    box-shadow: 0 0 1.5em rgb(123, 224, 191, 0.5);
+    padding: 1rem;
+    border-radius: 2%;
+    height: auto;
+    transform: translateY(80%);
+  }
+
+  footer img.logo {
+    margin: 1rem auto;
+    width: 285px;
+    height: 150px;
+  }
+
+  .wrapper {
+    min-height: 60vh;
+  }
+
+  #about-us {
+    margin-top: 1rem;
+  }
+
+  .pembates {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  h1.tengah {
+    font-size: 46px;
+  }
+
+  footer img.logo {
+    width: 200px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .sosmed #instagram,
+  .sosmed #website,
+  .sosmed #linkedin {
+    width: 0;
+    margin: 0 auto;
+  }
+
+  footer .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 501px) {
+  .wrapper {
+    min-height: 55vh;
+  }
+
+  h1.tengah {
+    font-size: 30px;
+  }
+
+  .wrapper p {
+    font-size: 15px;
+  }
 }

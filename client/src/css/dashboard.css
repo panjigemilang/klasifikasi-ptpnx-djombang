@@ -13,3 +13,13 @@
 .wrapper-d li {
   text-shadow: 2px 2px 2px #063512;
 }
+
+@media only screen and (max-width: 576px) {
+  .wrapper-d h3 {
+    font-size: 2rem;
+  }
+
+  .wrapper-d .container {
+    width: 90%;
+  }
+}

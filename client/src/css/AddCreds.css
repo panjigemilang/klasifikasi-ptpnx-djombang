@@ -10,8 +10,22 @@
 .add-creds p {
   text-shadow: 1px 2px white;
 }
+@media only screen and (max-width: 991px) {
+  .add-creds a {
+    display: none;
+  }
+}
 
 @media only screen and (max-width: 768px) {
+  .add-creds h1 {
+    font-size: 2em;
+  }
+  .add-creds p {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width: 576px) {
   .add-creds h1 {
     font-size: 2em;
   }

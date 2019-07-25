@@ -4,8 +4,6 @@
   background: url("../img/Artboard 1.png") no-repeat;
   background-size: contain;
   background-position: top;
-  width: 100%;
-  max-width: 100%;
   min-height: 90vh;
 }
 
@@ -22,4 +20,28 @@ button {
   float: right;
   width: 80px;
   margin: 0 1vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper-add a.btn {
+    display: none;
+  }
+
+  .wrapper-add h5 {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .wrapper-add {
+    background-size: unset;
+  }
+
+  .wrapper-add .container {
+    width: 90%;
+  }
+
+  .wrapper-add h5 {
+    font-size: 0.75em;
+  }
 }

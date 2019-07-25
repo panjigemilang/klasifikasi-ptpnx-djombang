@@ -81,7 +81,7 @@ class AddKaryawan extends Component {
     const { errors } = this.state
 
     return (
-      <div className="wrapper-add img-fluid">
+      <div className="wrapper-add">
         <div className="row">
           <div className="container">
             <br />

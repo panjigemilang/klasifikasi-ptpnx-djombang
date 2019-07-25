@@ -31,8 +31,9 @@ class Dashboard extends Component {
               <br />
               <br />
               <br />
-              <h3 className="display-4">
-                Selamat datang <strong> {user.name}</strong>
+              <br />
+              <h3 className="display-4 ">
+                Selamat datang <strong>{user.name}</strong>
               </h3>
               <br />
               <p>

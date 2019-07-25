@@ -1,12 +1,8 @@
 /* BODY */
-#wrapper-kf {
+.wrapper-kf {
   /* overflow-y: scroll; */
   background: url("../img/Artboard 1.png") no-repeat;
-  background-size: contain;
   background-position: top;
-  width: 100%;
-  max-width: 100%;
-  min-height: 90%;
   overflow-x: scroll;
   z-index: -1;
 }
@@ -48,7 +44,19 @@ table li a {
 }
 
 @media only screen and (max-width: 575px) {
-  h1.display-4 {
+  .wrapper-kf h1.tambah {
     padding: 0 4rem;
+    font-size: 1.5em;
+  }
+
+  .wrapper-kf .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 386px) {
+  .wrapper-kf h1.tambah {
+    padding: 0 4rem;
+    font-size: 1em;
   }
 }

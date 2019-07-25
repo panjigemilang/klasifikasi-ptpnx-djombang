@@ -26,9 +26,10 @@ class KaryawanFeed extends Component {
       karyawanFeedContent = <Spinner />
     } else {
       karyawanFeedContent = (
-        <div id="wrapper-kf">
+        <div className="wrapper-kf">
           <div className="row">
             <div className="container">
+              <br />
               <br />
               <br />
               <br />

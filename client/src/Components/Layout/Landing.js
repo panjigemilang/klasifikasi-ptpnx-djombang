@@ -16,19 +16,21 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="wrapper img-fluid">
+      <div className="wrapper">
         <div class="row">
-          <div class="col-lg-6 col-md-12">
-            <div class="kotak-konten">
-              <h1 class="display-3 tengah">Selamat Datang</h1>
-              <p>
-                &nbsp; Program Aplikasi website buatan mahasiswa Informatika UB
-                2016, klasifikasi kinerja pegawai menggunakan metode{" "}
-                <strong>Simple Additive Weighting </strong>{" "}
-              </p>
+          <div className="container">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+              <div class="kotak-konten">
+                <h1 class="display-4 tengah">Selamat Datang</h1>
+                <p>
+                  &nbsp; Program Aplikasi website buatan mahasiswa Informatika
+                  UB 2016, klasifikasi kinerja pegawai menggunakan metode{" "}
+                  <strong>Simple Additive Weighting </strong>{" "}
+                </p>
+              </div>
             </div>
+            <div class="col-lg-6 col-md-12" />
           </div>
-          <div class="col-lg-6 col-md-12" />
         </div>
       </div>
     )
