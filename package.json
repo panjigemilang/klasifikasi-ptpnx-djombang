@@ -37,7 +37,7 @@
     "test": "oke",
     "client-install": "npm install --prefix client",
     "start": "./node_modules/.bin/netlify-lambda serve server.js",
-    "build": "./node_modules/.bin/netlify-lambda npm run build --prefix client",
+    "build": "./node_modules/.bin/netlify-lambda build client",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
