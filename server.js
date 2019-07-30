@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const passport = require("passport")
 const path = require("path")
+const serverless = require("serverless-http")
 
 const app = express()
 
@@ -38,9 +39,9 @@ app.use(passport.initialize())
 require("./config/passport")(passport)
 
 // use routes
-app.use("/api/users", user)
-app.use("/api/employees", karyawan)
-app.use("/api/profile", profile)
+app.use("/.netlify/functions/api/users", user)
+app.use("/.netlify/functions/api/employees", karyawan)
+app.use("/.netlify/functions/api/profile", profile)
 
 // Access public folder
 app.use(
@@ -58,6 +59,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   })
 }
+
+// Serverless-http
+module.exports.handler = serverless(app)
 
 const port = process.env.PORT || 5000
 
