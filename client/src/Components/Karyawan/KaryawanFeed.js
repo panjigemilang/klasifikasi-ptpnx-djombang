@@ -23,11 +23,7 @@ class KaryawanFeed extends Component {
     let karyawanFeedContent
 
     if (loading) {
-      karyawanFeedContent = (
-        <div className="loader">
-          <Spinner />
-        </div>
-      )
+      karyawanFeedContent = <Spinner />
     } else {
       karyawanFeedContent = (
         <div className="wrapper-kf">

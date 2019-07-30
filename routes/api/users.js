@@ -16,7 +16,12 @@ const keys = require("../../config/keys")
 const validationRegister = require("../../validation/register")
 const validationLogin = require("../../validation/login")
 
-// Regis new NIP admin
+router.get("/users", (req, res) =>
+  res.json({
+    message: "users works"
+  })
+)
+
 router.post("/regis", (req, res) => {
   const newUser = new Nip({
     nip: req.body.nip
