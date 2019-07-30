@@ -39,9 +39,9 @@ app.use(passport.initialize())
 require("./config/passport")(passport)
 
 // use routes
-app.use("/.netlify/functions/api/users", user)
-app.use("/.netlify/functions/api/employees", karyawan)
-app.use("/.netlify/functions/api/profile", profile)
+app.use("/api/users", user)
+app.use("/api/employees", karyawan)
+app.use("/api/profile", profile)
 
 // Access public folder
 app.use(
