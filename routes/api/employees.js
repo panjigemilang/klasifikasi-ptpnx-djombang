@@ -1,11 +1,15 @@
+// Main
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
+const cors = require("cors")
 
 // Model
 const Karyawan = require("../../models/Karyawan")
 const Profile = require("../../models/Profile")
 const Nip = require("../../models/NIP")
+
+// Upload
 const multer = require("multer")
 const path = require("path")
 
@@ -25,13 +29,11 @@ const storage = multer.diskStorage({
 // Upload Images
 router.post(
   "/upload/:nip",
+  cors(),
   passport.authenticate("jwt", {
     session: false
   }),
   (req, res) => {
-    console.log("ini dirnamenya")
-    console.log(path.join("./client/public/img/profilePicture/"))
-
     let fotoProfil
     // Init upload
     const upload = multer({
@@ -99,7 +101,7 @@ router.post(
 )
 
 // get all employees
-router.get("/all", (req, res) => {
+router.get("/all", cors(), (req, res) => {
   const errors = {}
 
   Karyawan.find()
