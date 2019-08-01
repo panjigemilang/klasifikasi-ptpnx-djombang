@@ -11,7 +11,7 @@ const app = express()
 // Body Parser
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: true
   })
 )
 app.use(bodyParser.json())

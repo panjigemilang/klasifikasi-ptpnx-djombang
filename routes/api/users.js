@@ -4,7 +4,6 @@ const gravatar = require("gravatar")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const passport = require("passport")
-const cors = require("cors")
 
 // Model
 const User = require("../../models/User")
@@ -17,7 +16,7 @@ const keys = require("../../config/keys")
 const validationRegister = require("../../validation/register")
 const validationLogin = require("../../validation/login")
 
-router.get("/users", cors(), (req, res) =>
+router.get("/users", (req, res) =>
   res.json({
     message: "users works"
   })
@@ -35,7 +34,7 @@ router.post("/regis", (req, res) => {
 })
 
 // Register New User
-router.post("/register", cors(), (req, res) => {
+router.post("/register", (req, res) => {
   const { errors, isValid } = validationRegister(req.body)
 
   if (!isValid) {
@@ -121,7 +120,7 @@ router.post("/register", cors(), (req, res) => {
 })
 
 // Login User
-router.post("/login", cors(), (req, res) => {
+router.post("/login", (req, res) => {
   const email = req.body.email
   const password = req.body.password
 

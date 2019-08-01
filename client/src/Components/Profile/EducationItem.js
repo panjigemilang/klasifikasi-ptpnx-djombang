@@ -5,11 +5,32 @@ import Moment from "react-moment"
 import { deleteEducation } from "../../actions/profileActions"
 
 function EducationItem(props) {
+  // const [id, setId] = useState(null)
+  let id
   const { education, pid } = props
+  console.log("ini props terbaru")
+  console.log(education._id)
 
-  const onClickDelete = (exp_id, uid) => {
-    props.deleteEducation(exp_id, uid)
+  const onClickDelete = (edu_id, uid) => {
+    console.log("ini edu ID nya")
+    console.log(edu_id)
+    props.deleteEducation(edu_id, uid)
   }
+
+  const cobaDoang = (e, paid) => {
+    e.preventDefault()
+    console.log("paid nya")
+    console.log(paid)
+
+    console.log(id)
+  }
+
+  const ngesetId = setid => (id = setid)
+
+  // useEffect(() => {
+  //   console.log("ID terbaru")
+  //   console.log(id)
+  // }, [id])
 
   return (
     <React.Fragment>
@@ -24,7 +45,9 @@ function EducationItem(props) {
           type="button"
           className="btn btn-sm btn-danger float-right"
           data-toggle="modal"
-          data-target="#exampleModalCenter"
+          data-target="#educationModalCenter"
+          data-id={education._id}
+          onClick={() => ngesetId(education._id)}
         >
           &times;
         </button>
@@ -44,7 +67,7 @@ function EducationItem(props) {
           <p>
             <strong>
               Degree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{" "}
-            </strong>{" "}
+            </strong>
             {education.degree}
           </p>
         ) : null}
@@ -53,7 +76,7 @@ function EducationItem(props) {
       {/* MODALS */}
       <div
         className="modal fade"
-        id="exampleModalCenter"
+        id="educationModalCenter"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
@@ -85,6 +108,7 @@ function EducationItem(props) {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => onClickDelete(education._id, pid)}
+                // onClick={e => cobaDoang(e, education._id)}
                 data-dismiss="modal"
               >
                 Sure

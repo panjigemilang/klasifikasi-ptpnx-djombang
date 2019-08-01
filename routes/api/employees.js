@@ -2,7 +2,6 @@
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
-const cors = require("cors")
 
 // Model
 const Karyawan = require("../../models/Karyawan")
@@ -29,7 +28,6 @@ const storage = multer.diskStorage({
 // Upload Images
 router.post(
   "/upload/:nip",
-  cors(),
   passport.authenticate("jwt", {
     session: false
   }),
@@ -101,7 +99,7 @@ router.post(
 )
 
 // get all employees
-router.get("/all", cors(), (req, res) => {
+router.get("/all", (req, res) => {
   const errors = {}
 
   Karyawan.find()

@@ -29,8 +29,6 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile
     const { employee } = this.props.karyawan
     const loadingKaryawan = this.props.karyawan.loading
-    console.log("ini apaan jenis nya")
-    console.log(employee.jenisKelamin)
 
     const image = !isEmpty(employee.fotoProfil)
       ? process.env.PUBLIC_URL + `/img/profilePicture/${employee.fotoProfil}`

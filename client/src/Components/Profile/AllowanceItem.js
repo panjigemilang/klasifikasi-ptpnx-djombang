@@ -20,7 +20,7 @@ function AllowanceItem(props) {
           type="button"
           className="btn btn-sm btn-danger float-right"
           data-toggle="modal"
-          data-target="#exampleModalCenter"
+          data-target="#allowanceModalCenter"
         >
           &times;
         </button>
@@ -43,7 +43,7 @@ function AllowanceItem(props) {
       {/* MODALS */}
       <div
         className="modal fade"
-        id="exampleModalCenter"
+        id="allowanceModalCenter"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
