@@ -38,6 +38,7 @@ class KaryawanItems extends Component {
           </td>
           <td>{karyawan.alamat}</td>
           <td>{karyawan.noTelepon}</td>
+          <td>{karyawan.status}</td>
           <td>
             <ul style={{ listStyleType: "none" }}>
               <li>

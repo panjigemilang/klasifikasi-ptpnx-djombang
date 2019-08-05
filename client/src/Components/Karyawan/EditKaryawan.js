@@ -162,10 +162,16 @@ class EditKaryawan extends Component {
       { label: "perempuan", value: "perempuan" }
     ]
 
-    const optionStatus = [
+    const optionStatusPernikahan = [
       { label: "* Select Status", value: 0 },
       { label: "menikah", value: "menikah" },
       { label: "belum menikah", value: "belum menikah" }
+    ]
+
+    const optionStatus = [
+      { label: "* Select Status", value: 0 },
+      { label: "tetap", value: "tetap" },
+      { label: "tidak tetap", value: "tidak tetap" }
     ]
 
     const { errors } = this.state
@@ -343,7 +349,7 @@ class EditKaryawan extends Component {
                       name="statusPernikahan"
                       value={this.state.statusPernikahan.toLowerCase()}
                       onChange={e => this.onChange(e)}
-                      options={optionStatus}
+                      options={optionStatusPernikahan}
                       info="Status perkawinan"
                       disabled={!isAuthenticated}
                       errors={errors.statusPernikahan}
@@ -412,6 +418,17 @@ class EditKaryawan extends Component {
                       disabled={!isAuthenticated}
                       errors={errors.email}
                       type="email"
+                    />
+
+                    <SelectListGroup
+                      placeHolder="* Status karyawan"
+                      name="status"
+                      value={this.state.status}
+                      onChange={e => this.onChange(e)}
+                      options={optionStatus}
+                      info="Status karyawan"
+                      disabled={!isAuthenticated}
+                      errors={errors.status}
                     />
 
                     {isAuthenticated ? (

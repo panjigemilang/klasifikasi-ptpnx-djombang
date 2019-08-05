@@ -67,7 +67,8 @@ class KaryawanFeed extends Component {
         statusPernikahan: temp[8],
         alamat: temp[9],
         noTelepon: temp[10],
-        email: temp[11]
+        email: temp[11],
+        status: temp[12]
       })
 
       temp = []
@@ -129,6 +130,7 @@ class KaryawanFeed extends Component {
                     <th scope="col">Tanggal Lahir</th>
                     <th scope="col">Alamat Rumah</th>
                     <th scope="col">Nomor Telepon</th>
+                    <th scope="col">Status Karyawan</th>
                     <th scope="col" />
                   </tr>
                 </thead>

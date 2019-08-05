@@ -120,6 +120,9 @@ class ExportPdf extends Component {
             <p>
               <strong>Email</strong>
             </p>
+            <p>
+              <strong>Status Karyawan</strong>
+            </p>
           </div>
           <div className="col-lg-3 col-md-3">
             <p>
@@ -137,6 +140,9 @@ class ExportPdf extends Component {
             ) : null}
             <p>
               <strong>: </strong> {employee.email}
+            </p>
+            <p>
+              <strong>: </strong> {employee.status}
             </p>
           </div>
         </div>

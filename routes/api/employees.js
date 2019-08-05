@@ -39,7 +39,7 @@ router.post(
       limits: { fileSize: 2800000 },
       fileFilter: (req, file, cb) => {
         // Allowed file types
-        const filetypes = /jpeg|jpg|png|gif/
+        const filetypes = /jpg/
         // Check Extname
         const extname = filetypes.test(
           path.extname(file.originalname).toLowerCase()
@@ -49,7 +49,7 @@ router.post(
         if (extname && mimetype) {
           cb(null, true)
         } else {
-          fotoProfil = "Image type only!"
+          fotoProfil = "Hanya menerima file format .jpg saja."
           cb(fotoProfil)
         }
       }
@@ -248,7 +248,8 @@ router.post(
           alamat: req.body[i].alamat,
           tanggalLahir: req.body[i].tanggalLahir,
           email: req.body[i].email,
-          fotoProfil: req.body[i].fotoProfil
+          fotoProfil: req.body[i].fotoProfil,
+          status: req.body[i].status
         })
 
         // add to employee model. Save employee
@@ -324,7 +325,8 @@ router.post(
               alamat: req.body.alamat,
               tanggalLahir: req.body.tanggalLahir,
               email: req.body.email,
-              fotoProfil: req.body.fotoProfil
+              fotoProfil: req.body.fotoProfil,
+              status: req.body.status
             })
 
             // add to employee model. Save employee
@@ -377,6 +379,7 @@ router.post(
     if (req.body.tanggalLahir)
       karyawanField.tanggalLahir = req.body.tanggalLahir
     if (req.body.email) karyawanField.email = req.body.email
+    if (req.body.status) karyawanField.status = req.body.status
 
     Karyawan.findOneAndUpdate(
       {

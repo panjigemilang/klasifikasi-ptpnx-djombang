@@ -28,6 +28,7 @@ class AddKaryawan extends Component {
       alamat: "",
       noTelepon: "",
       email: "",
+      status: "",
       fotoProfil: "",
       errors: {}
     }
@@ -66,6 +67,7 @@ class AddKaryawan extends Component {
       tempatLahir: this.state.tempatLahir,
       alamat: this.state.alamat,
       email: this.state.email,
+      status: this.state.status,
       tanggalLahir: this.state.tanggalLahir,
       fotoProfil: this.state.fotoProfil
     }
@@ -86,10 +88,16 @@ class AddKaryawan extends Component {
       { label: "wanita", value: "perempuan" }
     ]
 
+    const optionStatusPernikahan = [
+      { label: "* Select Status", value: 0 },
+      { label: "menikah", value: "menikah" },
+      { label: "belum menikah", value: "belum menikah" }
+    ]
+
     const optionStatus = [
       { label: "* Select Status", value: 0 },
-      { label: "kawin", value: "kawin" },
-      { label: "belum kawin", value: "belum kawin" }
+      { label: "tetap", value: "tetap" },
+      { label: "tidak tetap", value: "tidak tetap" }
     ]
 
     const { errors } = this.state
@@ -172,7 +180,7 @@ class AddKaryawan extends Component {
                 name="statusPernikahan"
                 value={this.state.statusPernikahan}
                 onChange={e => this.onChange(e)}
-                options={optionStatus}
+                options={optionStatusPernikahan}
                 info="Give us an idea with your Status"
                 errors={errors.statusPernikahan}
               />
@@ -230,6 +238,16 @@ class AddKaryawan extends Component {
                 info="E-mail karyawan"
                 errors={errors.email}
                 type="email"
+              />
+
+              <SelectListGroup
+                placeHolder="* Status karyawan"
+                name="status"
+                value={this.state.status}
+                onChange={e => this.onChange(e)}
+                options={optionStatus}
+                info="Karyawan tetap atau tidak tetap"
+                errors={errors.status}
               />
 
               <input type="submit" className="btn btn-info btn-block mt-4" />

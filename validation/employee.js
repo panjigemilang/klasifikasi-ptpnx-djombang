@@ -14,6 +14,7 @@ module.exports = function validateEmployeeinput(data) {
   data.jenisKelamin = !isEmpty(data.jenisKelamin) ? data.jenisKelamin : ""
   data.noTelepon = !isEmpty(data.noTelepon) ? data.noTelepon : ""
   data.email = !isEmpty(data.email) ? data.email : ""
+  data.status = !isEmpty(data.status) ? data.status : ""
 
   // nip
   if (!validator.isInt(data.nip)) {
@@ -87,6 +88,11 @@ module.exports = function validateEmployeeinput(data) {
 
   if (!validator.isEmail(data.email)) {
     errors.email = "Email tidak valid. Masukkan email yang benar!"
+  }
+
+  // status
+  if (validator.isEmpty(data.status)) {
+    errors.status = "Kolom status harus diisi!"
   }
 
   return {

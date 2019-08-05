@@ -153,7 +153,13 @@ class Profile extends Component {
                         </p>
                         <hr />
                       </div>
-                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 " />
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Status Karyawan</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.status}
+                        </p>
+                        <hr />
+                      </div>
                       <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
                         <strong className="strong-desc">Nomor Telepon</strong>
                         <p className="card-text p-card baris-pembagi">
