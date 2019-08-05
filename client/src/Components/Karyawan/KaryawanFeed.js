@@ -8,6 +8,7 @@ import {
   addMultipleEmployee
 } from "../../actions/karyawanActions"
 import Spinner from "../Common/Spinner"
+import { ExcelRenderer } from "react-excel-renderer"
 
 const mapStateToProps = state => ({
   auth: state.auth,
