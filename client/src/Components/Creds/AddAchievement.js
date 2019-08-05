@@ -3,20 +3,20 @@ import { Link, withRouter } from "react-router-dom"
 import TextFieldGroup from "../Common/TextFieldGroup"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
-import { addAllowance } from "../../actions/profileActions"
+import { addAchievement } from "../../actions/profileActions"
 
 const mapStateToProps = state => ({
   profile: state.profile,
   errors: state.errors
 })
 
-class AddAllowance extends Component {
+class AddAchievement extends Component {
   constructor() {
     super()
     this.state = {
-      name: "",
-      status: "",
-      noTelepon: "",
+      jenisPenghargaan: "",
+      oleh: "",
+      tahunPenghargaan: "",
       errors: {}
     }
   }
@@ -39,14 +39,14 @@ class AddAllowance extends Component {
 
     e.preventDefault()
 
-    const allowanceData = {
+    const achievementData = {
       uid: uid,
-      name: this.state.name,
-      status: this.state.status,
-      noTelepon: this.state.noTelepon
+      jenisPenghargaan: this.state.jenisPenghargaan,
+      oleh: this.state.oleh,
+      tahunPenghargaan: this.state.tahunPenghargaan
     }
 
-    this.props.addAllowance(allowanceData, this.props.history, uid)
+    this.props.addAchievement(achievementData, this.props.history, uid)
 
     // setTimeout for loading
     window.setTimeout(() => {
@@ -70,33 +70,34 @@ class AddAllowance extends Component {
           </Link>
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Allowance</h1>
-              <p className="lead text-center">Add any name, status, etc.</p>
-              <small className="d-block pb-3">* = required fields</small>
+              <h1 className="display-4 text-center">Tambah penghargaan</h1>
+              <p className="lead text-center">
+                Tambahkan jenisPenghargaan, diberikan oleh, dll.
+              </p>
+              <small className="d-block pb-3">* = harus diisi</small>
               <form onSubmit={e => this.onSubmit(e, userId)}>
                 <TextFieldGroup
-                  placeHolder="* Name"
-                  name="name"
-                  value={this.state.name}
+                  placeHolder="* Jenis Penghargaan"
+                  name="jenisPenghargaan"
+                  value={this.state.jenisPenghargaan}
                   onChange={e => this.onChange(e)}
-                  errors={errors.name}
-                  info="Insert name here"
+                  errors={errors.jenisPenghargaan}
+                  info="Masukkan jenis penghargaan"
                 />
                 <TextFieldGroup
-                  placeHolder="* Status (istri / suami / anak)"
-                  name="status"
-                  value={this.state.status}
+                  placeHolder="Diberikan oleh"
+                  name="oleh"
+                  value={this.state.oleh}
                   onChange={e => this.onChange(e)}
-                  errors={errors.status}
-                  info="Insert status here"
+                  errors={errors.oleh}
                 />
                 <TextFieldGroup
-                  placeHolder="Nomor telepon"
-                  name="noTelepon"
-                  value={this.state.noTelepon}
+                  placeHolder="* Tahun Penghargaan"
+                  name="tahunPenghargaan"
+                  value={this.state.tahunPenghargaan}
                   onChange={e => this.onChange(e)}
-                  errors={errors.noTelepon}
-                  info="Insert phone number here (optional)"
+                  errors={errors.tahunPenghargaan}
+                  type="date"
                 />
                 <input
                   type="submit"
@@ -114,13 +115,13 @@ class AddAllowance extends Component {
   }
 }
 
-AddAllowance.propTypes = {
-  addAllowance: PropTypes.func.isRequired,
+AddAchievement.propTypes = {
+  addAchievement: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 export default connect(
   mapStateToProps,
-  { addAllowance }
-)(withRouter(AddAllowance))
+  { addAchievement }
+)(withRouter(AddAchievement))

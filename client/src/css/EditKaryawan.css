@@ -58,7 +58,7 @@ input[type="number"] {
   width: 40px;
 }
 
-input[type="file"] {
+#upload-file {
   display: none;
 }
 

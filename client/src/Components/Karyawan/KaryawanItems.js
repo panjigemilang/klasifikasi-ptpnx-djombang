@@ -24,7 +24,8 @@ class KaryawanItems extends Component {
           <th scope="row">{index + 1}</th>
           <td>{karyawan.nip}</td>
           <td>{karyawan.name}</td>
-          <td>{karyawan.departemen}</td>
+          <td>{karyawan.akademik}</td>
+          <td>{karyawan.agama}</td>
           <td>{karyawan.jabatan}</td>
           <td>{karyawan.jenisKelamin}</td>
           <td>{karyawan.tempatLahir}</td>
@@ -74,7 +75,8 @@ class KaryawanItems extends Component {
           <th scope="row">{index + 1}</th>
           <td>{karyawan.nip}</td>
           <td>{karyawan.name}</td>
-          <td>{karyawan.departemen}</td>
+          <td>{karyawan.akademik}</td>
+          <td>{karyawan.agama}</td>
           <td>{karyawan.jabatan}</td>
           <td>{karyawan.jenisKelamin}</td>
           <td>{karyawan.tempatLahir}</td>
@@ -91,10 +93,10 @@ class KaryawanItems extends Component {
             <ul style={{ listStyleType: "none" }}>
               <li>
                 <Link
-                  className="btn btn-sm btn-info"
-                  to={`/karyawan/nip/${karyawan.nip}`}
+                  className="btn btn-sm btn-warning text-white"
+                  to={`/profile/id/${karyawan._id}`}
                 >
-                  View
+                  Biodata
                 </Link>
               </li>
             </ul>

@@ -25,14 +25,16 @@ class EditKaryawan extends Component {
     this.state = {
       nip: "",
       name: "",
+      akademik: "",
       jabatan: "",
-      departemen: "",
-      jenisKelamin: "",
-      statusPernikahan: "",
-      noTelepon: "",
       tempatLahir: "",
-      alamat: "",
       tanggalLahir: "",
+      jenisKelamin: "",
+      agama: "",
+      statusPernikahan: "",
+      alamat: "",
+      noTelepon: "",
+      email: "",
       fotoProfil: "",
       errors: {}
     }
@@ -56,10 +58,9 @@ class EditKaryawan extends Component {
       // If profile field does exists, fill the input with the current profile
       profile.nip = !isEmpty(profile.nip) ? profile.nip : ""
       profile.name = !isEmpty(profile.name) ? profile.name : ""
+      profile.akademik = !isEmpty(profile.akademik) ? profile.akademik : ""
       profile.jabatan = !isEmpty(profile.jabatan) ? profile.jabatan : ""
-      profile.departemen = !isEmpty(profile.departemen)
-        ? profile.departemen
-        : ""
+      profile.agama = !isEmpty(profile.agama) ? profile.agama : ""
       profile.jenisKelamin = !isEmpty(profile.jenisKelamin)
         ? profile.jenisKelamin
         : ""
@@ -70,6 +71,7 @@ class EditKaryawan extends Component {
       profile.tempatLahir = !isEmpty(profile.tempatLahir)
         ? profile.tempatLahir
         : ""
+      profile.email = !isEmpty(profile.email) ? profile.email : ""
       profile.alamat = !isEmpty(profile.alamat) ? profile.alamat : ""
       profile.tanggalLahir = !isEmpty(profile.tanggalLahir)
         ? profile.tanggalLahir
@@ -81,14 +83,16 @@ class EditKaryawan extends Component {
       this.setState({
         nip: profile.nip,
         name: profile.name,
+        akademik: profile.akademik,
         jabatan: profile.jabatan,
-        departemen: profile.departemen,
+        agama: profile.agama,
         jenisKelamin: profile.jenisKelamin,
         statusPernikahan: profile.statusPernikahan,
         noTelepon: profile.noTelepon,
         tempatLahir: profile.tempatLahir,
         alamat: profile.alamat,
         tanggalLahir: profile.tanggalLahir,
+        email: profile.email,
         fotoProfil: profile.fotoProfil
       })
     }
@@ -108,9 +112,6 @@ class EditKaryawan extends Component {
 
     document.getElementById("btn-submit").style.display = "block"
 
-    console.log("files")
-    console.log(isEmpty(files))
-
     this.setState({
       fotoProfil: e.target.files[0]
     })
@@ -122,13 +123,15 @@ class EditKaryawan extends Component {
     const profileData = {
       nip: this.state.nip,
       name: this.state.name,
+      akademik: this.state.akademik,
       jabatan: this.state.jabatan,
-      departemen: this.state.departemen,
+      agama: this.state.agama,
       jenisKelamin: this.state.jenisKelamin,
       statusPernikahan: this.state.statusPernikahan,
       noTelepon: this.state.noTelepon,
       tempatLahir: this.state.tempatLahir,
       alamat: this.state.alamat,
+      email: this.state.email,
       tanggalLahir: this.state.tanggalLahir,
       fotoProfil: this.state.fotoProfil
     }
@@ -152,28 +155,22 @@ class EditKaryawan extends Component {
   }
 
   render() {
-    console.log("ini publicURL")
-    console.log(process.env.PUBLIC_URL)
-
     // Select options for status
     const optionGender = [
       { label: "* Select Gender", value: 0 },
-      { label: "pria", value: "pria" },
-      { label: "wanita", value: "wanita" }
+      { label: "laki-laki", value: "laki-laki" },
+      { label: "perempuan", value: "perempuan" }
     ]
 
     const optionStatus = [
       { label: "* Select Status", value: 0 },
-      { label: "kawin", value: "kawin" },
-      { label: "belum kawin", value: "belum kawin" }
+      { label: "menikah", value: "menikah" },
+      { label: "belum menikah", value: "belum menikah" }
     ]
 
     const { errors } = this.state
     const { isAuthenticated } = this.props.auth
     const { loading, employee } = this.props.karyawan
-
-    console.log("ini apaan jenis nya")
-    console.log(employee.jenisKelamin)
 
     const image = !isEmpty(employee.fotoProfil)
       ? process.env.PUBLIC_URL + `/img/profilePicture/${employee.fotoProfil}`
@@ -235,10 +232,7 @@ class EditKaryawan extends Component {
                           id="upload-file"
                           onChange={e => this.onChangeUpload(e)}
                         />
-                        <label
-                          for="upload-file"
-                          // onChange={e => this.onChange(e)}
-                        >
+                        <label for="upload-file">
                           <i class="fas fa-file-image" /> &nbsp;
                           <span id="label-span"> Choose a profile picture</span>
                         </label>
@@ -261,17 +255,17 @@ class EditKaryawan extends Component {
 
                     <div className="card-body">
                       <h5 className="card-title">
-                        <strong>NIP: </strong>
+                        <strong>NIK: </strong>
                         <p> {this.state.nip}</p>
                       </h5>
                       <p className="card-text">
-                        <strong>Name: </strong>
+                        <strong>Nama: </strong>
                         <p className="font-weight-light"> {this.state.name}</p>
                       </p>
                       <p className="card-text">
-                        <strong>Departemen: </strong>
+                        <strong>Akademik: </strong>
                         <p className="font-weight-light">
-                          {this.state.departemen}
+                          {this.state.akademik}
                         </p>
                       </p>
                       <p className="card-text">
@@ -279,6 +273,10 @@ class EditKaryawan extends Component {
                         <p className="font-weight-light">
                           {this.state.jabatan}
                         </p>
+                      </p>
+                      <p className="card-text">
+                        <strong>Agama: </strong>
+                        <p className="font-weight-light">{this.state.agama}</p>
                       </p>
                     </div>
                   </form>
@@ -291,12 +289,12 @@ class EditKaryawan extends Component {
                   {/* Form kedua | KARYAWAN FIELD */}
                   <form onSubmit={e => this.onSubmit(e, employee._id)}>
                     <TextFieldGroupSm
-                      placeHolder="* NIP"
+                      placeHolder="* NIK"
                       name="nip"
                       value={this.state.nip}
                       onChange={e => this.onChange(e)}
                       disabled={true}
-                      info="Employee's NIP"
+                      info="NIK karyawan"
                       errors={errors.nip}
                     />
 
@@ -305,19 +303,29 @@ class EditKaryawan extends Component {
                       name="name"
                       value={this.state.name}
                       onChange={e => this.onChange(e)}
-                      info="Employee's name"
+                      info="Nama karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.name}
                     />
 
                     <TextFieldGroupSm
-                      placeHolder="* Departemen"
-                      name="departemen"
-                      value={this.state.departemen}
+                      placeHolder="Akademik"
+                      name="akademik"
+                      value={this.state.akademik}
                       onChange={e => this.onChange(e)}
-                      info="Employee's department"
+                      info="Akademik karyawan"
                       disabled={!isAuthenticated}
-                      errors={errors.departemen}
+                      errors={errors.akademik}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* agama"
+                      name="agama"
+                      value={this.state.agama}
+                      onChange={e => this.onChange(e)}
+                      info="Agama Karyawan"
+                      disabled={!isAuthenticated}
+                      errors={errors.agama}
                     />
 
                     <TextFieldGroupSm
@@ -325,7 +333,7 @@ class EditKaryawan extends Component {
                       name="jabatan"
                       value={this.state.jabatan}
                       onChange={e => this.onChange(e)}
-                      info="Employee's position"
+                      info="Jabatan karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.jabatan}
                     />
@@ -333,10 +341,10 @@ class EditKaryawan extends Component {
                     <SelectListGroup
                       placeHolder="* Select employee status"
                       name="statusPernikahan"
-                      value={this.state.statusPernikahan}
+                      value={this.state.statusPernikahan.toLowerCase()}
                       onChange={e => this.onChange(e)}
                       options={optionStatus}
-                      info="Employee's status"
+                      info="Status perkawinan"
                       disabled={!isAuthenticated}
                       errors={errors.statusPernikahan}
                     />
@@ -344,10 +352,10 @@ class EditKaryawan extends Component {
                     <SelectListGroup
                       placeHolder="* Jenis Kelamin"
                       name="jenisKelamin"
-                      value={this.state.jenisKelamin}
+                      value={this.state.jenisKelamin.toLowerCase()}
                       onChange={e => this.onChange(e)}
                       options={optionGender}
-                      info="Employee's gender"
+                      info="Jenis kelamin karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.jenisKelamin}
                     />
@@ -357,7 +365,7 @@ class EditKaryawan extends Component {
                       name="noTelepon"
                       value={this.state.noTelepon}
                       onChange={e => this.onChange(e)}
-                      info="Employee's phone number"
+                      info="Nomor telepon karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.noTelepon}
                     />
@@ -367,7 +375,7 @@ class EditKaryawan extends Component {
                       name="alamat"
                       value={this.state.alamat}
                       onChange={e => this.onChange(e)}
-                      info="Employee's address"
+                      info="Alamat rumah karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.alamat}
                     />
@@ -377,7 +385,7 @@ class EditKaryawan extends Component {
                       name="tempatLahir"
                       value={this.state.tempatLahir}
                       onChange={e => this.onChange(e)}
-                      info="Employee's birth place"
+                      info="Tempat lahir karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.tempatLahir}
                     />
@@ -390,9 +398,20 @@ class EditKaryawan extends Component {
                         /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/g
                       )}
                       onChange={e => this.onChange(e)}
-                      info="Employee's birthdate"
+                      info="Tanggal lahir karyawan"
                       disabled={!isAuthenticated}
                       errors={errors.tanggalLahir}
+                    />
+
+                    <TextFieldGroupSm
+                      placeHolder="* email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={e => this.onChange(e)}
+                      info="Alamat E-mail karyawan"
+                      disabled={!isAuthenticated}
+                      errors={errors.email}
+                      type="email"
                     />
 
                     {isAuthenticated ? (

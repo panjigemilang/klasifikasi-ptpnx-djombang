@@ -7,6 +7,7 @@
   z-index: -1;
 }
 
+/* Table */
 .kotak {
   margin: 0 10vh;
   width: 100%;
@@ -24,14 +25,14 @@
   border-bottom: 0.5px rgba(68, 121, 145, 0.25) solid;
 }
 
+/* Button */
 #btn-add-karyawan {
   margin: 5vh 10vh;
   float: right;
 }
 
-.push {
-  background: black;
-  height: 5vh;
+.import-excel {
+  display: none;
 }
 
 table li button,

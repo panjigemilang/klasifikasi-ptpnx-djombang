@@ -1,12 +1,11 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { PropTypes } from "prop-types"
 import Moment from "react-moment"
 import { deleteEducation } from "../../actions/profileActions"
 
 function EducationItem(props) {
-  // const [id, setId] = useState(null)
-  let id
+  const [id, setId] = useState(null)
   const { education, pid } = props
   console.log("ini props terbaru")
   console.log(education._id)
@@ -18,19 +17,26 @@ function EducationItem(props) {
   }
 
   const cobaDoang = (e, paid) => {
-    e.preventDefault()
     console.log("paid nya")
     console.log(paid)
 
     console.log(id)
   }
 
-  const ngesetId = setid => (id = setid)
+  const ngesetID = e => {
+    e.preventDefault()
 
-  // useEffect(() => {
-  //   console.log("ID terbaru")
-  //   console.log(id)
-  // }, [id])
+    let dataId = e.target.dataset["id"] || e.target.getAttribute("data.id")
+    console.log("ini ada kaga")
+    console.log(dataId)
+
+    setId(dataId)
+  }
+
+  useEffect(() => {
+    console.log("ID terbaru")
+    console.log(id)
+  }, [id])
 
   return (
     <React.Fragment>
@@ -44,10 +50,10 @@ function EducationItem(props) {
         <button
           type="button"
           className="btn btn-sm btn-danger float-right"
-          data-toggle="modal"
-          data-target="#educationModalCenter"
-          data-id={education._id}
-          onClick={() => ngesetId(education._id)}
+          // data-toggle="modal"
+          // data-target="#educationModalCenter"
+          // data-id={education._id}
+          onClick={() => onClickDelete(education._id, pid)}
         >
           &times;
         </button>
@@ -61,12 +67,13 @@ function EducationItem(props) {
           )}
         </p>
         <p>
-          <strong>Field of Study : </strong> {education.fieldofstudy}
+          <strong>Field of Study :&nbsp;</strong>
+          {education.fieldofstudy}
         </p>
         {education.degree ? (
           <p>
             <strong>
-              Degree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{" "}
+              Degree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
             </strong>
             {education.degree}
           </p>
@@ -107,8 +114,8 @@ function EducationItem(props) {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => onClickDelete(education._id, pid)}
-                // onClick={e => cobaDoang(e, education._id)}
+                // onClick={() => onClickDelete(education._id, pid)}
+                onClick={e => cobaDoang(e, id)}
                 data-dismiss="modal"
               >
                 Sure

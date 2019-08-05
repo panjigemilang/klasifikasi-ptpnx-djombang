@@ -20,8 +20,9 @@ function ExperienceItem(props) {
         <button
           type="button"
           className="btn btn-sm btn-danger float-right"
-          data-toggle="modal"
-          data-target="#exampleModalCenter"
+          // data-toggle="modal"
+          // data-target="#exampleModalCenter"
+          onClick={() => onClickDelete(experience._id, pid)}
         >
           &times;
         </button>
@@ -36,14 +37,16 @@ function ExperienceItem(props) {
         </p>
         <p>
           <strong>Position &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>
-          {experience.title}&nbsp;
+          {experience.title}
           {experience.location ? (
             <React.Fragment>at {experience.location}</React.Fragment>
           ) : null}
         </p>
-        <p>
-          <strong>Description : </strong> {experience.description}
-        </p>
+        {experience.description ? (
+          <p>
+            <strong>Description : </strong> {experience.description}
+          </p>
+        ) : null}
       </li>
 
       {/* MODALS */}

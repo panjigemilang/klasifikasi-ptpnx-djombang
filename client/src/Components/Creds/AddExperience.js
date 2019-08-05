@@ -48,6 +48,9 @@ class AddExperience extends Component {
   }
 
   onSubmit = (e, userId) => {
+    // waiting for upload
+    document.getElementsByTagName("html")[0].className += " wait"
+
     e.preventDefault()
 
     const expData = {
@@ -62,6 +65,11 @@ class AddExperience extends Component {
     }
 
     this.props.addExperience(expData, this.props.history, userId)
+
+    // setTimeout for loading
+    window.setTimeout(() => {
+      document.getElementsByTagName("html")[0].className -= " wait"
+    }, 3000)
   }
 
   render() {
@@ -82,14 +90,15 @@ class AddExperience extends Component {
           </Link>
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Experience</h1>
+              <h1 className="display-4 text-center">Tambahkan pengalaman</h1>
               <p className="lead text-center">
-                Add any job or position that you have had in the past or current
+                Tambahkan pengalaman pekerjaan atau posisi yang pernah diemban
+                atau posisi saat ini.
               </p>
-              <small className="d-block pb-3">* = required fields</small>
+              <small className="d-block pb-3">* = harus diisi</small>
               <form onSubmit={e => this.onSubmit(e, userId)}>
                 <TextFieldGroup
-                  placeHolder="* Company"
+                  placeHolder="* Perusahaan"
                   name="company"
                   value={this.state.company}
                   onChange={e => this.onChange(e)}
@@ -103,7 +112,7 @@ class AddExperience extends Component {
                   errors={errors.title}
                 />
                 <TextFieldGroup
-                  placeHolder="Location"
+                  placeHolder="Lokasi"
                   name="location"
                   value={this.state.location}
                   onChange={e => this.onChange(e)}
@@ -141,12 +150,12 @@ class AddExperience extends Component {
                   </label>
                 </div>
                 <TextAreaFieldGroup
-                  placeHolder="Job Description"
+                  placeHolder="Deskripsi pekerjaan"
                   name="description"
                   value={this.state.description}
                   onChange={e => this.onChange(e)}
                   errors={errors.description}
-                  info="Tell us about the the position"
+                  info="Jelaskan secara singkat"
                 />
                 <input
                   type="submit"

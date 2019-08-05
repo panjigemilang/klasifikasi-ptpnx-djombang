@@ -3,20 +3,21 @@ import { Link, withRouter } from "react-router-dom"
 import TextFieldGroup from "../Common/TextFieldGroup"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
-import { addAllowance } from "../../actions/profileActions"
+import { addPelatihan } from "../../actions/profileActions"
 
 const mapStateToProps = state => ({
   profile: state.profile,
   errors: state.errors
 })
 
-class AddAllowance extends Component {
+class AddPelatihan extends Component {
   constructor() {
     super()
     this.state = {
-      name: "",
-      status: "",
-      noTelepon: "",
+      namaPelatihan: "",
+      tahunPelatihan: "",
+      noSertifikat: "",
+      penyelenggara: "",
       errors: {}
     }
   }
@@ -39,14 +40,15 @@ class AddAllowance extends Component {
 
     e.preventDefault()
 
-    const allowanceData = {
+    const pelatihanData = {
       uid: uid,
-      name: this.state.name,
-      status: this.state.status,
-      noTelepon: this.state.noTelepon
+      namaPelatihan: this.state.namaPelatihan,
+      tahunPelatihan: this.state.tahunPelatihan,
+      noSertifikat: this.state.noSertifikat,
+      penyelenggara: this.state.penyelenggara
     }
 
-    this.props.addAllowance(allowanceData, this.props.history, uid)
+    this.props.addPelatihan(pelatihanData, this.props.history, uid)
 
     // setTimeout for loading
     window.setTimeout(() => {
@@ -70,33 +72,47 @@ class AddAllowance extends Component {
           </Link>
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Allowance</h1>
-              <p className="lead text-center">Add any name, status, etc.</p>
-              <small className="d-block pb-3">* = required fields</small>
+              <h1 className="display-4 text-center">Tambahkan Pelatihan</h1>
+              <p className="lead text-center">
+                Tambahkan pelatihan yang pernah dilakukan, tahun pelatihan, dll.
+              </p>
+              <small className="d-block pb-3">* = harus diisi</small>
               <form onSubmit={e => this.onSubmit(e, userId)}>
                 <TextFieldGroup
-                  placeHolder="* Name"
-                  name="name"
-                  value={this.state.name}
+                  placeHolder="* Nama pelatihan"
+                  name="namaPelatihan"
+                  value={this.state.namaPelatihan}
                   onChange={e => this.onChange(e)}
-                  errors={errors.name}
-                  info="Insert name here"
+                  errors={errors.namaPelatihan}
+                  info="Masukkan nama pelatihan"
                 />
+
                 <TextFieldGroup
-                  placeHolder="* Status (istri / suami / anak)"
-                  name="status"
-                  value={this.state.status}
+                  placeHolder="* Tahun Pelatihan"
+                  name="tahunPelatihan"
+                  value={this.state.tahunPelatihan}
                   onChange={e => this.onChange(e)}
-                  errors={errors.status}
-                  info="Insert status here"
+                  errors={errors.tahunPelatihan}
+                  type="date"
+                  info="Masukkan tahun pelatihan"
                 />
+
                 <TextFieldGroup
-                  placeHolder="Nomor telepon"
-                  name="noTelepon"
-                  value={this.state.noTelepon}
+                  placeHolder="* Nomor sertifikat"
+                  name="noSertifikat"
+                  value={this.state.noSertifikat}
                   onChange={e => this.onChange(e)}
-                  errors={errors.noTelepon}
-                  info="Insert phone number here (optional)"
+                  errors={errors.noSertifikat}
+                  info="Masukkan nomor sertifikat"
+                />
+
+                <TextFieldGroup
+                  placeHolder="* Penyelenggara"
+                  name="penyelenggara"
+                  value={this.state.penyelenggara}
+                  onChange={e => this.onChange(e)}
+                  errors={errors.penyelenggara}
+                  info="Masukkan nama penyelenggara"
                 />
                 <input
                   type="submit"
@@ -106,7 +122,6 @@ class AddAllowance extends Component {
               </form>
             </div>
           </div>
-
           <br />
         </div>
       </div>
@@ -114,13 +129,13 @@ class AddAllowance extends Component {
   }
 }
 
-AddAllowance.propTypes = {
-  addAllowance: PropTypes.func.isRequired,
+AddPelatihan.propTypes = {
+  addPelatihan: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 export default connect(
   mapStateToProps,
-  { addAllowance }
-)(withRouter(AddAllowance))
+  { addPelatihan }
+)(withRouter(AddPelatihan))

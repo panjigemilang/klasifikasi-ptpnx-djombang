@@ -10,11 +10,24 @@ const KaryawanSchema = new Schema({
     type: String,
     required: true
   },
-  departemen: {
+  akademik: {
+    type: String
+  },
+  jabatan: {
     type: String,
     required: true
   },
-  jabatan: {
+  tempatLahir: {
+    type: String
+  },
+  tanggalLahir: {
+    type: Date
+  },
+  jenisKelamin: {
+    type: String,
+    required: true
+  },
+  agama: {
     type: String,
     required: true
   },
@@ -22,21 +35,15 @@ const KaryawanSchema = new Schema({
     type: String,
     required: true
   },
-  jenisKelamin: {
-    type: String,
-    required: true
+  alamat: {
+    type: String
   },
   noTelepon: {
     type: String
   },
-  alamat: {
-    type: String
-  },
-  tempatLahir: {
-    type: String
-  },
-  tanggalLahir: {
-    type: Date
+  email: {
+    type: String,
+    required: true
   },
   fotoProfil: {
     type: String,

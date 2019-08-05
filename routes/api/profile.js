@@ -6,6 +6,8 @@ const router = express.Router()
 const validationAllowance = require("../../validation/allowance")
 const validationExperiences = require("../../validation/experiences")
 const validationEducation = require("../../validation/educations")
+const validationPelatihan = require("../../validation/pelatihan")
+const validationAchievement = require("../../validation/achievement")
 
 // loading models
 const Profile = require("../../models/Profile")
@@ -218,6 +220,94 @@ router.post(
   }
 )
 
+// @route   POST api/profile/pelatihan
+// @desc    add pelatihan to profile
+// @access  Private
+router.post(
+  "/pelatihan",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    const { errors, isValid } = validationPelatihan(req.body)
+
+    if (!isValid) {
+      return res.status(404).json(errors)
+    }
+
+    const pelatihanField = {}
+    if (req.body.namaPelatihan)
+      pelatihanField.namaPelatihan = req.body.namaPelatihan
+    if (req.body.tahunPelatihan)
+      pelatihanField.tahunPelatihan = req.body.tahunPelatihan
+    if (req.body.noSertifikat)
+      pelatihanField.noSertifikat = req.body.noSertifikat
+    if (req.body.penyelenggara)
+      pelatihanField.penyelenggara = req.body.penyelenggara
+
+    Profile.findOneAndUpdate(
+      { user: req.body.uid },
+      { $set: pelatihanField },
+      { new: true }
+    ).then(profile => {
+      const newExp = {
+        namaPelatihan: req.body.namaPelatihan,
+        tahunPelatihan: req.body.tahunPelatihan,
+        noSertifikat: req.body.noSertifikat,
+        penyelenggara: req.body.penyelenggara
+      }
+
+      // add to exp array
+      profile.pelatihan.push(newExp)
+      profile.save().then(err => {
+        res.json(profile)
+      })
+    })
+  }
+)
+
+// @route   POST api/profile/achievement
+// @desc    add achievement to profile
+// @access  Private
+router.post(
+  "/achievement",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    const { errors, isValid } = validationAchievement(req.body)
+
+    if (!isValid) {
+      return res.status(404).json(errors)
+    }
+
+    const achievementField = {}
+    if (req.body.jenisPenghargaan)
+      achievementField.jenisPenghargaan = req.body.jenisPenghargaan
+    if (req.body.oleh) achievementField.oleh = req.body.oleh
+    if (req.body.tahunPenghargaan)
+      achievementField.tahunPenghargaan = req.body.tahunPenghargaan
+
+    Profile.findOneAndUpdate(
+      { user: req.body.uid },
+      { $set: achievementField },
+      { new: true }
+    ).then(profile => {
+      const newExp = {
+        jenisPenghargaan: req.body.jenisPenghargaan,
+        oleh: req.body.oleh,
+        tahunPenghargaan: req.body.tahunPenghargaan
+      }
+
+      // add to exp array
+      profile.achievement.push(newExp)
+      profile.save().then(err => {
+        res.json(profile)
+      })
+    })
+  }
+)
+
 // @route   DELETE api/experience
 // @desc    delete experiences on profile
 // @access  Private
@@ -285,6 +375,56 @@ router.delete(
 
       // Splice out of array
       profile.allowance.splice(removeIndex, 1)
+
+      profile.save().then(profile => {
+        res.json(profile)
+      })
+    })
+  }
+)
+
+// @route   DELETE api/pelatihan
+// @desc    delete pelatihan on profile
+// @access  Private
+router.delete(
+  "/pelatihan/:pel_id&:pid",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    Profile.findOne({ _id: req.params.pid }).then(profile => {
+      // get remove index
+      const removeIndex = profile.pelatihan
+        .map(item => item.id)
+        .indexOf(req.params.pel_id)
+
+      // Splice out of array
+      profile.pelatihan.splice(removeIndex, 1)
+
+      profile.save().then(profile => {
+        res.json(profile)
+      })
+    })
+  }
+)
+
+// @route   DELETE api/achievement
+// @desc    delete achievement on profile
+// @access  Private
+router.delete(
+  "/achievement/:acv_id&:pid",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    Profile.findOne({ _id: req.params.pid }).then(profile => {
+      // get remove index
+      const removeIndex = profile.achievement
+        .map(item => item.id)
+        .indexOf(req.params.acv_id)
+
+      // Splice out of array
+      profile.achievement.splice(removeIndex, 1)
 
       profile.save().then(profile => {
         res.json(profile)

@@ -3,7 +3,8 @@ import {
   DELETE_EMPLOYEE,
   ADD_EMPLOYEE,
   GET_EMPLOYEES,
-  GET_EMPLOYEE
+  GET_EMPLOYEE,
+  ADD_EMPLOYEES
 } from "../actions/types"
 
 const initialState = {
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
         loading: true
       }
     case ADD_EMPLOYEE:
+      return {
+        ...state,
+        employees: [action.payload, ...state.employees]
+      }
+    case ADD_EMPLOYEES:
       return {
         ...state,
         employees: [action.payload, ...state.employees]

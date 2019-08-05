@@ -26,6 +26,9 @@ import Profile from "./Components/Profile/Profile"
 import AddEducation from "./Components/Creds/AddEducation"
 import AddExperience from "./Components/Creds/AddExperience"
 import AddAllowance from "./Components/Creds/AddAllowance"
+import AddPelatihan from "./Components/Creds/AddPelatihan"
+import AddAchievement from "./Components/Creds/AddAchievement"
+import ExportPdf from "./Components/Creds/ExportPdf"
 
 if (localStorage.jwtToken) {
   // set token to authorization
@@ -56,7 +59,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/karyawan-list" component={KaryawanFeed} />
-          <Route exact path="/karyawan/nip/:nip" component={EditKaryawan} />
+          <Route exact path="/profile/id/:user_id" component={Profile} />
 
           {/* Private Route */}
           <Switch>
@@ -89,8 +92,29 @@ function App() {
           <Switch>
             <PrivateRoute
               exact
-              path="/profile/id/:user_id"
-              component={Profile}
+              path="/profile/add-pelatihan/:user_id"
+              component={AddPelatihan}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/profile/add-achievement/:user_id"
+              component={AddAchievement}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/profile/export/:user_id"
+              component={ExportPdf}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/karyawan/nip/:nip"
+              component={EditKaryawan}
             />
           </Switch>
 

@@ -116,11 +116,36 @@ router.get("/all", (req, res) => {
 })
 
 // Get employee by NIP
-router.get("/nip/:nip", (req, res) => {
+router.get(
+  "/nip/:nip",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    const errors = {}
+
+    Karyawan.findOne({
+      nip: req.params.nip
+    })
+      .then(profile => {
+        if (!profile) {
+          errors.noProfile = "Employee not found"
+          return res.status(404).json(errors)
+        }
+        return res.json(profile)
+      })
+      .catch(err => {
+        return res.status(404).json("There is no employee found")
+      })
+  }
+)
+
+// Get employee by ID
+router.get("/id/:user_id", (req, res) => {
   const errors = {}
 
   Karyawan.findOne({
-    nip: req.params.nip
+    _id: req.params.user_id
   })
     .then(profile => {
       if (!profile) {
@@ -134,28 +159,128 @@ router.get("/nip/:nip", (req, res) => {
     })
 })
 
-// Get employee by ID
-router.get(
-  "/id/:user_id",
+// create/add multiple karyawan
+router.post(
+  "/add-multiple-karyawan",
   passport.authenticate("jwt", {
     session: false
   }),
   (req, res) => {
-    const errors = {}
+    try {
+      let newEmp
+      let i = 0
+      // let isValid
+      // let errors
+      // let jk
 
-    Karyawan.findOne({
-      _id: req.params.user_id
-    })
-      .then(profile => {
-        if (!profile) {
-          errors.noProfile = "Employee not found"
-          return res.status(404).json(errors)
-        }
-        return res.json(profile)
+      for (i; i < req.body.length; i++) {
+        // // Ntar gua coba lagi gayn
+        // isValid = validationEmployee(req.body[i]).isValid
+        // errors = validationEmployee(req.body[i]).errors
+
+        // return Nip.findOne({ nip: req.body[i].nip }).then(profile => {
+        //   if (profile) {
+        //     return res.status(400).json({
+        //       nip: "NIK tidak valid, karena ini adalah NIK admin. Coba lagi"
+        //     })
+        //   } else {
+        //     return Karyawan.findOne({
+        //       nip: req.body[i].nip
+        //     }).then(exists => {
+        //       if (exists) {
+        //         return res.status(400).json({
+        //           nip: "Karyawan telah terdaftar dengan NIK yang sama."
+        //         })
+        //       } else {
+        //         jk = req.body[i].jenisKelamin.replace(/\s+/g, "")
+
+        //         const newEmp = new Karyawan({
+        //           nip: req.body[i].nip,
+        //           name: req.body[i].name,
+        //           akademik: req.body[i].akademik,
+        //           agama: req.body[i].agama,
+        //           jabatan: req.body[i].jabatan,
+        //           statusPernikahan: req.body[i].statusPernikahan,
+        //           noTelepon: req.body[i].noTelepon,
+        //           jenisKelamin: jk,
+        //           tempatLahir: req.body[i].tempatLahir,
+        //           alamat: req.body[i].alamat,
+        //           tanggalLahir: req.body[i].tanggalLahir,
+        //           email: req.body[i].email,
+        //           fotoProfil: req.body[i].fotoProfil
+        //         })
+
+        //         // add to employee model. Save employee
+        //         newEmp
+        //           .save()
+        //           .then(user => {
+        //             // Variable for profile
+        //             const newProfile = {}
+        //             newProfile.user = user._id
+
+        //             // Save profile
+        //             new Profile(newProfile).save()
+        //             console.log("selesai Save")
+
+        //             res.json(user)
+        //           })
+        //           .catch(err => {
+        //             console.log(err)
+        //             throw new Error(err)
+        //           })
+        //       }
+        //     })
+        //   }
+        // })
+
+        jk = req.body[i].jenisKelamin.replace(/\s+/g, "")
+
+        newEmp = new Karyawan({
+          nip: req.body[i].nip,
+          name: req.body[i].name,
+          akademik: req.body[i].akademik,
+          agama: req.body[i].agama,
+          jabatan: req.body[i].jabatan,
+          statusPernikahan: req.body[i].statusPernikahan,
+          noTelepon: req.body[i].noTelepon,
+          jenisKelamin: jk,
+          tempatLahir: req.body[i].tempatLahir,
+          alamat: req.body[i].alamat,
+          tanggalLahir: req.body[i].tanggalLahir,
+          email: req.body[i].email,
+          fotoProfil: req.body[i].fotoProfil
+        })
+
+        // add to employee model. Save employee
+        newEmp.save().then(user => {
+          // Variable for profile
+          const newProfile = {}
+          newProfile.user = user._id
+
+          // Save profile
+          new Profile(newProfile).save()
+          console.log("selesai save")
+        })
+      }
+
+      res.status(200).json({
+        message: "Success. saved"
       })
-      .catch(err => {
-        return res.status(404).json("There is no employee found")
-      })
+
+      // if (!isValid) {
+      //   return res.status(400).json({
+      //     errors: errors
+      //   })
+      // } else {
+      //   return res.status(200).json({
+      //     msg: success
+      //   })
+      // }
+    } catch (error) {
+      console.log("ini error")
+
+      console.log(error)
+    }
   }
 )
 
@@ -175,7 +300,7 @@ router.post(
     Nip.findOne({ nip: req.body.nip }).then(profile => {
       if (profile) {
         return res.status(400).json({
-          nip: "NIP are invalid, because it's an Admin NIP. try another one."
+          nip: "NIK tidak valid, karena ini adalah NIK admin. Coba lagi"
         })
       } else {
         Karyawan.findOne({
@@ -183,13 +308,14 @@ router.post(
         }).then(exists => {
           if (exists) {
             return res.status(400).json({
-              nip: "Karyawan telah terdaftar dengan NIP yang sama."
+              nip: "Karyawan telah terdaftar dengan NIK yang sama."
             })
           } else {
             const newEmp = new Karyawan({
               nip: req.body.nip,
               name: req.body.name,
-              departemen: req.body.departemen,
+              akademik: req.body.akademik,
+              agama: req.body.agama,
               jabatan: req.body.jabatan,
               statusPernikahan: req.body.statusPernikahan,
               noTelepon: req.body.noTelepon,
@@ -197,6 +323,7 @@ router.post(
               tempatLahir: req.body.tempatLahir,
               alamat: req.body.alamat,
               tanggalLahir: req.body.tanggalLahir,
+              email: req.body.email,
               fotoProfil: req.body.fotoProfil
             })
 
@@ -237,8 +364,9 @@ router.post(
     const karyawanField = {}
     if (req.body.nip) karyawanField.nip = req.body.nip
     if (req.body.name) karyawanField.name = req.body.name
-    if (req.body.departemen) karyawanField.departemen = req.body.departemen
+    if (req.body.akademik) karyawanField.akademik = req.body.akademik
     if (req.body.jabatan) karyawanField.jabatan = req.body.jabatan
+    if (req.body.agama) karyawanField.agama = req.body.agama
     if (req.body.statusPernikahan)
       karyawanField.statusPernikahan = req.body.statusPernikahan
     if (req.body.noTelepon) karyawanField.noTelepon = req.body.noTelepon
@@ -248,6 +376,7 @@ router.post(
     if (req.body.alamat) karyawanField.alamat = req.body.alamat
     if (req.body.tanggalLahir)
       karyawanField.tanggalLahir = req.body.tanggalLahir
+    if (req.body.email) karyawanField.email = req.body.email
 
     Karyawan.findOneAndUpdate(
       {
@@ -272,15 +401,23 @@ router.delete(
   "/:user_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Karyawan.findOneAndRemove({
-      _id: req.params.user_id
-    })
-      .then(post => {
-        res.status(200).json({ success: true })
+    Profile.findOneAndRemove({ user: req.params.user_id })
+      .then(() => {
+        Karyawan.findOneAndRemove({
+          _id: req.params.user_id
+        })
+          .then(post => {
+            res.status(200).json({ success: true })
+          })
+          .catch(err => {
+            res.status(400).json({
+              errors: "nape nih error"
+            })
+          })
       })
       .catch(err => {
         res.status(400).json({
-          errors: "nape nih error"
+          errors: "gagal delete"
         })
       })
   }

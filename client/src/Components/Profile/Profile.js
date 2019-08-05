@@ -12,6 +12,7 @@ import { getEmployeeById } from "../../actions/karyawanActions"
 import "../../css/Profile.css"
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   profile: state.profile,
   karyawan: state.karyawan,
   errors: state.errors
@@ -26,6 +27,7 @@ class Profile extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth
     const { profile, loading } = this.props.profile
     const { employee } = this.props.karyawan
     const loadingKaryawan = this.props.karyawan.loading
@@ -55,70 +57,113 @@ class Profile extends Component {
                 <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4">
                   <img
                     className="d-block mx-auto rounded-circle"
-                    id={!isEmpty(employee.fotoProfil) ? null : "pp"}
+                    id="pp"
                     src={image}
-                    height="135px"
-                    width="135px"
                     alt="foto_profil.jpg"
                   />
                   <h5 className="card-title text-center">{employee.nip}</h5>
                   <hr />
                   <p className="card-text">
-                    <ProfileActions userId={employee._id} />
+                    {isAuthenticated ? (
+                      <ProfileActions userId={employee._id} />
+                    ) : null}
                   </p>
                 </div>
                 <div className="col-lg-12 col-md-8 col-sm-8 col-xs-8">
                   <div className="card-body">
+                    {/* Pembagian */}
                     <div className="row">
-                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4">
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
                         <strong className="strong-desc">Nama</strong>
-                        <p className="card-text p-card">{employee.name}</p>
-                        <hr />
-                        <strong className="strong-desc">Departemen</strong>
-                        <p className="card-text p-card">
-                          {employee.departemen}
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.name}
                         </p>
                         <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Akademik</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.akademik}
+                        </p>
+                        <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
                         <strong className="strong-desc">Jabatan</strong>
-                        <p className="card-text p-card">{employee.jabatan}</p>
-                        <hr />
-                      </div>
-                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4">
-                        <strong className="strong-desc">
-                          Status Pernikahan
-                        </strong>
-                        <p className="card-text p-card">
-                          {employee.statusPernikahan}
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.jabatan}
                         </p>
                         <hr />
-                        <strong className="strong-desc">Jenis Kelamin</strong>
-                        <p className="card-text p-card">
-                          {employee.jenisKelamin}
-                        </p>
-                        <hr />
-                        <strong className="strong-desc">Nomor Telepon</strong>
-                        <p className="card-text p-card">{employee.noTelepon}</p>
-                        <hr />
                       </div>
-                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4">
-                        <strong className="strong-desc">Alamat Rumah</strong>
-                        <p className="card-text p-card">{employee.alamat}</p>
-                        <hr />
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
                         <strong className="strong-desc">Tempat Lahir</strong>
-                        <p className="card-text p-card">
+                        <p className="card-text p-card baris-pembagi">
                           {employee.tempatLahir}
                         </p>
                         <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
                         <strong className="strong-desc">Tanggal Lahir</strong>
-                        <p className="card-text p-card">
+                        <p className="card-text p-card baris-pembagi">
                           <Moment format="DD/MM/YYYY">
                             {employee.tanggalLahir}
                           </Moment>
                         </p>
+                        <hr />
                       </div>
-                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4" />
-                      <hr />
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Jenis Kelamin</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.jenisKelamin}
+                        </p>
+                        <hr />
+                      </div>
                     </div>
+                    <div className="row">
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Agama</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.agama}
+                        </p>
+                        <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">
+                          Status Perkawinan
+                        </strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.statusPernikahan}
+                        </p>
+                        <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Alamat</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.alamat}
+                        </p>
+                        <hr />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">E-mail</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.email}
+                        </p>
+                        <hr />
+                      </div>
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 " />
+                      <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 ">
+                        <strong className="strong-desc">Nomor Telepon</strong>
+                        <p className="card-text p-card baris-pembagi">
+                          {employee.noTelepon}
+                        </p>
+                        <hr />
+                      </div>
+                    </div>
+                    <div className="col-lg-12 col-md-4 col-sm-4 col-xs-4" />
+                    {/* END */}
                   </div>
                 </div>
               </div>
@@ -128,13 +173,17 @@ class Profile extends Component {
             {profile &&
             (!isEmpty(profile.experiences) ||
               !isEmpty(profile.education) ||
-              !isEmpty(profile.allowance)) ? (
+              !isEmpty(profile.allowance) ||
+              !isEmpty(profile.pelatihan) ||
+              !isEmpty(profile.achievement)) ? (
               <React.Fragment>
                 <ProfileCreds
                   pid={profile._id}
                   education={profile.education}
                   experiences={profile.experiences}
                   allowance={profile.allowance}
+                  pelatihan={profile.pelatihan}
+                  achievement={profile.achievement}
                 />
               </React.Fragment>
             ) : (
@@ -143,8 +192,8 @@ class Profile extends Component {
                   className="font-weight-bold text-justify text-white"
                   id="custom-text"
                 >
-                  Current employee doesn't have any profile yet. please insert
-                  the employee profile data.
+                  Karyawan saat ini tidak memiliki profil untuk ditampilkan.
+                  Silahkan tambahkan profil pada menu dibawah foto profil.
                 </h5>
               </React.Fragment>
             )}
@@ -186,6 +235,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+  auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   karyawan: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,

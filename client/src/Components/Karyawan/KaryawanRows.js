@@ -1,10 +1,5 @@
 import React, { Component } from "react"
 import KaryawanItems from "./KaryawanItems"
-// import { connect } from "react-redux"
-
-// const mapStateToProps = state => ({
-//   karyawan: state.karyawan
-// })
 
 class KaryawanRows extends Component {
   render() {
@@ -16,5 +11,4 @@ class KaryawanRows extends Component {
   }
 }
 
-// export default connect(mapStateToProps)(KaryawanRows)
 export default KaryawanRows

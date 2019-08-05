@@ -11,21 +11,42 @@ export default function ProfileActions(props) {
         className="mb-2 btn btn-sm btn-light"
       >
         <i className="fab fa-black-tie text-info mr-1" />
-        Add Experience
+        &nbsp;Tambah Pengalaman
       </Link>
       <Link
         to={`/profile/add-education/${userId}`}
         className="mb-2 btn btn-sm btn-light"
       >
         <i className="fas fa-graduation-cap text-info mr-1" />
-        Add Education
+        &nbsp;Tambah Pendidikan
       </Link>
       <Link
         to={`/profile/add-allowance/${userId}`}
         className="mb-2 btn btn-sm btn-light"
       >
         <i className="fas fa-users text-info mr-1" />
-        Add Allowance
+        &nbsp;Tambah Tunjangan
+      </Link>
+      <Link
+        to={`/profile/add-pelatihan/${userId}`}
+        className="mb-2 btn btn-sm btn-light"
+      >
+        <i className="fab fa-accessible-icon text-info mr-1" />
+        &nbsp;Tambah Pelatihan
+      </Link>
+      <Link
+        to={`/profile/add-achievement/${userId}`}
+        className="mb-2 btn btn-sm btn-light"
+      >
+        <i className="fas fa-trophy text-info mr-1" />
+        &nbsp;Tambah Penghargaan
+      </Link>
+      <Link
+        to={`/profile/export/${userId}`}
+        className="mb-2 btn btn-sm btn-info"
+      >
+        <i className="fas fa-print mr-1" />
+        &nbsp;Export
       </Link>
     </div>
   )

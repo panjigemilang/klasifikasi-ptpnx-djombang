@@ -6,6 +6,10 @@ body {
   /* overflow-x: hidden; */
 }
 
+html.wait {
+  cursor: wait;
+}
+
 /* HEADER NAVBAR */
 .nav-text-color a {
   color: #bef7f5 !important;

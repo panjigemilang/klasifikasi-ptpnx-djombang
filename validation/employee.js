@@ -7,93 +7,87 @@ module.exports = function validateEmployeeinput(data) {
   data.nip = !isEmpty(data.nip) ? data.nip : ""
   data.name = !isEmpty(data.name) ? data.name : ""
   data.jabatan = !isEmpty(data.jabatan) ? data.jabatan : ""
-  data.departemen = !isEmpty(data.departemen) ? data.departemen : ""
+  data.agama = !isEmpty(data.agama) ? data.agama : ""
   data.statusPernikahan = !isEmpty(data.statusPernikahan)
     ? data.statusPernikahan
     : ""
   data.jenisKelamin = !isEmpty(data.jenisKelamin) ? data.jenisKelamin : ""
   data.noTelepon = !isEmpty(data.noTelepon) ? data.noTelepon : ""
-  data.alamat = !isEmpty(data.alamat) ? data.alamat : ""
-  data.tempatLahir = !isEmpty(data.tempatLahir) ? data.tempatLahir : ""
-  data.tanggalLahir = !isEmpty(data.tanggalLahir) ? data.tanggalLahir : ""
+  data.email = !isEmpty(data.email) ? data.email : ""
 
-  // NIP
+  // nip
   if (!validator.isInt(data.nip)) {
-    errors.nip = "NIP must be a number"
+    errors.nip = "NIK harus berupa angka"
   }
 
   if (validator.isEmpty(data.nip)) {
-    errors.nip = "NIP field is required"
+    errors.nip = "kolom NIK harus diisi!"
   }
 
   // Name
   if (
     !validator.isLength(data.name, {
       min: 2,
-      max: 30
+      max: 50
     })
   ) {
-    errors.name = "Name must be between 2 or 30 characters"
+    errors.name = "Kolom nama harus terdiri dari 2 sampai 30 huruf"
   }
 
   if (validator.isEmpty(data.name)) {
-    errors.name = "Name field is required"
+    errors.name = "Kolom nama harus diisi!"
   }
 
-  // Departemen
-  if (validator.isEmpty(data.departemen)) {
-    errors.departemen = "Department field is required"
+  // agama
+  if (validator.isEmpty(data.agama)) {
+    errors.agama = "Kolom agama harus diisi!"
   }
 
   if (
-    !validator.isLength(data.departemen, {
+    !validator.isLength(data.agama, {
       min: 2,
       max: 30
     })
   ) {
-    errors.departemen = "Department must be between 2 or 30 characters"
+    errors.agama = "Tidak valid."
   }
 
   // Jabatan
   if (validator.isEmpty(data.jabatan)) {
-    errors.jabatan = "jabatan field is required"
+    errors.jabatan = "Kolom jabatan harus diisi!"
   }
 
   // statusPernikahan
   if (validator.isEmpty(data.statusPernikahan)) {
-    errors.statusPernikahan = "Status pernikahan field is required"
-  } else {
-    data.statusPernikahan.toLowerCase() !== "kawin" &&
-    data.statusPernikahan.toLowerCase() !== "belum kawin"
-      ? (errors.statusPernikahan = "Status pernikahan needs to be spesific")
-      : null
+    errors.statusPernikahan = "Kolom status pernikahan harus diisi!"
   }
 
   // noTelepon
   if (!validator.isEmpty(data.noTelepon)) {
     if (!validator.isInt(data.noTelepon))
-      errors.noTelepon = "nomor telepon must be a number"
+      errors.noTelepon = "Nomor telepon harus berupa angka"
     if (
       !validator.isLength(data.noTelepon, {
         min: 11,
         max: 13
       })
     )
-      errors.noTelepon = "noTelepon must be between 12 or 13 digits"
+      errors.noTelepon = "Nomor telepon harus 12 sampai 13 digit"
   }
 
   // Jenis Kelamin
-  data.jenisKelamin.toLowerCase() !== "pria" &&
-  data.jenisKelamin.toLowerCase() !== "wanita"
-    ? (errors.jenisKelamin = "Sex needs to be specific")
-    : null
+  if (validator.isEmpty(data.jenisKelamin)) {
+    errors.jenisKelamin = "Kolom jenis kelamin harus diisi!"
+  }
 
-  // if (
-  //   data.jenisKelamin.toLowerCase() != "pria" &&
-  //   data.jenisKelamin.toLowerCase() != "wanita"
-  // ) {
-  //   errors.jenisKelamin = "Sex needs to be specific"
-  // }
+  // Email
+  if (validator.isEmpty(data.email)) {
+    errors.email = "Kolom email harus diisi!"
+  }
+
+  if (!validator.isEmail(data.email)) {
+    errors.email = "Email tidak valid. Masukkan email yang benar!"
+  }
 
   return {
     errors,

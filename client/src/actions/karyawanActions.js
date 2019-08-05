@@ -1,6 +1,7 @@
 import axios from "axios"
 import {
   ADD_EMPLOYEE,
+  ADD_EMPLOYEES,
   GET_ERRORS,
   GET_EMPLOYEES,
   CLEAR_ERRORS,
@@ -28,7 +29,27 @@ export const addEmployee = (postData, history) => dispatch => {
     )
 }
 
-// update karyawan && upload image
+// adding employee
+export const addMultipleEmployee = (postData, history) => dispatch => {
+  dispatch(clearErrors())
+  axios
+    .post("/api/employees/add-multiple-karyawan", postData)
+    .then(res => {
+      dispatch({
+        type: ADD_EMPLOYEES,
+        payload: res.data
+      })
+      history.push("/karyawan-list")
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+// update karyawan
 export const updateKaryawan = (id, postData, history) => dispatch => {
   dispatch(clearErrors())
   axios
@@ -122,7 +143,7 @@ export const getEmployeeById = id => dispatch => {
 }
 
 // delete employee
-export const deleteEmployee = (id, history) => dispatch => {
+export const deleteEmployee = id => dispatch => {
   if (
     window.confirm(
       "Are you sure to delete the employee? This cannot be undone."

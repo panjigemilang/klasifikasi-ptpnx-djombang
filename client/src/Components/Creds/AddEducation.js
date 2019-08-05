@@ -4,7 +4,6 @@ import TextFieldGroup from "../Common/TextFieldGroup"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import { addEducation } from "../../actions/profileActions"
-import "../../css/AddCreds.css"
 
 const mapStateToProps = state => ({
   profile: state.profile,
@@ -47,6 +46,9 @@ class AddEducation extends Component {
   }
 
   onSubmit = (e, uid) => {
+    // waiting for upload
+    document.getElementsByTagName("html")[0].className += " wait"
+
     e.preventDefault()
 
     const eduData = {
@@ -61,6 +63,11 @@ class AddEducation extends Component {
     }
 
     this.props.addEducation(eduData, this.props.history, uid)
+
+    // setTimeout for loading
+    window.setTimeout(() => {
+      document.getElementsByTagName("html")[0].className -= " wait"
+    }, 3000)
   }
 
   render() {

@@ -19,8 +19,9 @@ function AllowanceItem(props) {
         <button
           type="button"
           className="btn btn-sm btn-danger float-right"
-          data-toggle="modal"
-          data-target="#allowanceModalCenter"
+          // data-toggle="modal"
+          // data-target="#allowanceModalCenter"
+          onClick={() => onClickDelete(allowance._id, pid)}
         >
           &times;
         </button>

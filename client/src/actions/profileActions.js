@@ -176,6 +176,64 @@ export const deleteAllowance = (id, pid) => dispatch =>
       })
     )
 
+// Add pelatihan
+export const addPelatihan = (eduData, history, id) => dispatch =>
+  axios
+    .post("/api/profile/pelatihan/", eduData)
+    .then(res => history.push(`/profile/id/${id}`))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+
+// Delete pelatihan
+export const deletePelatihan = (id, pid) => dispatch =>
+  axios
+    .delete(`/api/profile/pelatihan/${id}&${pid}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+
+// Add achievements
+export const addAchievement = (eduData, history, id) => dispatch =>
+  axios
+    .post("/api/profile/achievement/", eduData)
+    .then(res => history.push(`/profile/id/${id}`))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+
+// Delete achievements
+export const deleteAchievement = (id, pid) => dispatch =>
+  axios
+    .delete(`/api/profile/achievement/${id}&${pid}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+
 // Profile loading
 export const setProfileLoading = () => {
   return {

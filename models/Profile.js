@@ -80,6 +80,41 @@ const ProfileSchema = new Schema({
       }
     }
   ],
+  pelatihan: [
+    {
+      namaPelatihan: {
+        type: String,
+        required: true
+      },
+      tahunPelatihan: {
+        type: Date,
+        required: true
+      },
+      noSertifikat: {
+        type: String,
+        required: true
+      },
+      penyelenggara: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  achievement: [
+    {
+      jenisPenghargaan: {
+        type: String,
+        required: true
+      },
+      oleh: {
+        type: String
+      },
+      tahunPenghargaan: {
+        type: Date,
+        required: true
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

@@ -18,14 +18,17 @@ class AddKaryawan extends Component {
     this.state = {
       nip: "",
       name: "",
+      akademik: "",
       jabatan: "",
-      departemen: "",
-      statusPernikahan: "",
-      noTelepon: "",
-      jenisKelamin: "",
       tempatLahir: "",
-      alamat: "",
       tanggalLahir: "",
+      jenisKelamin: "",
+      agama: "",
+      statusPernikahan: "",
+      alamat: "",
+      noTelepon: "",
+      email: "",
+      fotoProfil: "",
       errors: {}
     }
   }
@@ -48,28 +51,39 @@ class AddKaryawan extends Component {
   onSubmit(e) {
     e.preventDefault()
 
+    // waiting for upload
+    document.getElementsByTagName("html")[0].className += " wait"
+
     const newUser = {
       nip: this.state.nip,
       name: this.state.name,
-      departemen: this.state.departemen,
+      akademik: this.state.akademik,
       jabatan: this.state.jabatan,
+      agama: this.state.agama,
+      jenisKelamin: this.state.jenisKelamin,
       statusPernikahan: this.state.statusPernikahan,
       noTelepon: this.state.noTelepon,
-      jenisKelamin: this.state.jenisKelamin,
       tempatLahir: this.state.tempatLahir,
       alamat: this.state.alamat,
-      tanggalLahir: this.state.tanggalLahir
+      email: this.state.email,
+      tanggalLahir: this.state.tanggalLahir,
+      fotoProfil: this.state.fotoProfil
     }
 
     this.props.addEmployee(newUser, this.props.history)
+
+    // setTimeout for loading
+    window.setTimeout(() => {
+      document.getElementsByTagName("html")[0].className -= " wait"
+    }, 5000)
   }
 
   render() {
     // Select options for status
     const optionGender = [
       { label: "* Select Gender", value: 0 },
-      { label: "pria", value: "pria" },
-      { label: "wanita", value: "wanita" }
+      { label: "pria", value: "laki-laki" },
+      { label: "wanita", value: "perempuan" }
     ]
 
     const optionStatus = [
@@ -111,7 +125,7 @@ class AddKaryawan extends Component {
               <TextFieldGroup
                 name="nip"
                 type="text"
-                placeHolder="* NIP"
+                placeHolder="* NIK"
                 value={this.state.nip}
                 onChange={e => this.onChange(e)}
                 errors={errors.nip}
@@ -127,12 +141,21 @@ class AddKaryawan extends Component {
               />
 
               <TextFieldGroup
-                name="departemen"
+                name="akademik"
                 type="text"
-                placeHolder="* Departemen"
-                value={this.state.departemen}
+                placeHolder="Akademik"
+                value={this.state.akademik}
                 onChange={e => this.onChange(e)}
-                errors={errors.departemen}
+                errors={errors.akademik}
+              />
+
+              <TextFieldGroup
+                name="agama"
+                type="text"
+                placeHolder="* Agama"
+                value={this.state.agama}
+                onChange={e => this.onChange(e)}
+                errors={errors.agama}
               />
 
               <TextFieldGroup
@@ -196,10 +219,18 @@ class AddKaryawan extends Component {
                 value={this.state.tanggalLahir}
                 onChange={e => this.onChange(e)}
                 errors={errors.tanggalLahir}
-                info="please input your birthdate."
+                info="Masukkan tanggal lahir"
               />
 
-              {/* Foto Profile upload */}
+              <TextFieldGroup
+                placeHolder="* email"
+                name="email"
+                value={this.state.email}
+                onChange={e => this.onChange(e)}
+                info="E-mail karyawan"
+                errors={errors.email}
+                type="email"
+              />
 
               <input type="submit" className="btn btn-info btn-block mt-4" />
             </form>
