@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat|manjari&display=swap");
 
 html,
 body {
   height: 100%;
   margin: 0;
   overflow-x: hidden;
-  font-family: "Montserrat", sans-serif;
+  font-family: "manjari", sans-serif;
 }

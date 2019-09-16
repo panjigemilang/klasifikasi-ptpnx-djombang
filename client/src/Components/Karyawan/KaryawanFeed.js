@@ -9,6 +9,7 @@ import {
 } from "../../actions/karyawanActions"
 import Spinner from "../Common/Spinner"
 import { ExcelRenderer } from "react-excel-renderer"
+import SelectListGroupSm from "../Common/SelectListGroupSm"
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -19,12 +20,19 @@ class KaryawanFeed extends Component {
   constructor() {
     super()
     this.state = {
-      file: null
+      file: null,
+      tahun: 2019,
+      semester: 1
     }
   }
 
   componentDidMount() {
-    this.props.getEmployees()
+    const data = {
+      tahun: this.state.tahun,
+      semester: this.state.semester
+    }
+
+    this.props.getEmployees(data)
   }
 
   onChange(e) {
@@ -42,12 +50,29 @@ class KaryawanFeed extends Component {
     })
   }
 
+  onSelectChange(e) {
+    this.setState({
+      [e.target.name]: parseInt(e.target.value)
+    })
+  }
+
+  onSearchClick(e) {
+    const data = {
+      tahun: this.state.tahun,
+      semester: this.state.semester
+    }
+
+    console.log("Data", data)
+
+    this.props.getEmployees(data)
+    // window.setTimeout(window.location.reload(true), 2000)
+  }
+
   onSubmit(e) {
     e.preventDefault()
     let i = 0
     let temp = [],
       addData = []
-    // let addingData = {}
 
     // waiting for upload
     document.getElementsByTagName("html")[0].className += " wait"
@@ -96,6 +121,19 @@ class KaryawanFeed extends Component {
     const { auth } = this.props
     const { loading, employees } = this.props.karyawan
 
+    const optionYear = [
+      { label: "2019", value: 2019 },
+      { label: "2020", value: 2020 },
+      { label: "2021", value: 2021 },
+      { label: "2022", value: 2022 },
+      { label: "2023", value: 2023 }
+    ]
+
+    const optionSemester = [
+      { label: "Pertama", value: 1 },
+      { label: "Kedua", value: 2 }
+    ]
+
     let karyawanFeedContent
 
     if (loading) {
@@ -116,20 +154,51 @@ class KaryawanFeed extends Component {
           </div>
           <div className="row">
             <div className="kotak">
+              <div className="row">
+                <div className="col-lg-3 col-md-4">
+                  Tahun &nbsp;
+                  <SelectListGroupSm
+                    name="tahun"
+                    value={this.state.tahun}
+                    onChange={e => this.onSelectChange(e)}
+                    options={optionYear}
+                  ></SelectListGroupSm>
+                </div>
+                <div className="col-lg-3 col-md-4">
+                  Semester &nbsp;
+                  <SelectListGroupSm
+                    name="semester"
+                    value={this.state.semester}
+                    onChange={e => this.onSelectChange(e)}
+                    options={optionSemester}
+                  ></SelectListGroupSm>
+                </div>
+                <div className="col-lg-4 col-md-4">
+                  <br />
+                  <button
+                    className="btn btn-light float-left"
+                    style={{ width: "6rem", boxShadow: "1px 1px 4px gray" }}
+                    onClick={e => this.onSearchClick(e)}
+                  >
+                    <i className="fas fa-search"></i>&nbsp; Search
+                  </button>
+                </div>
+                <div className="col-lg-2 col-md-0"></div>
+              </div>
               <table className="table table-striped">
                 <thead className="thead-dark">
                   <tr>
                     <th scope="col">No</th>
                     <th scope="col">NIK</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Akademik</th>
                     <th scope="col">Agama</th>
                     <th scope="col">Jabatan</th>
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Tempat Lahir</th>
-                    <th scope="col">Tanggal Lahir</th>
                     <th scope="col">Alamat Rumah</th>
-                    <th scope="col">Nomor Telepon</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col">Nilai</th>
                     <th scope="col">Status Karyawan</th>
                     <th scope="col" />
                   </tr>

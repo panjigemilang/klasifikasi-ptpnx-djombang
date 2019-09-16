@@ -49,6 +49,22 @@ const KaryawanSchema = new Schema({
     type: String,
     required: true
   },
+  penilaian: [
+    {
+      tahun: {
+        type: Number,
+        default: 2019
+      },
+      semester: {
+        type: Number,
+        default: 1
+      },
+      nilai: {
+        type: String,
+        default: "-"
+      }
+    }
+  ],
   fotoProfil: {
     type: String,
     default: ""

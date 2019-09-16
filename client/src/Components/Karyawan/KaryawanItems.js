@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
-import Moment from "react-moment"
 import { PropTypes } from "prop-types"
 import { deleteEmployee } from "../../actions/karyawanActions"
 
@@ -18,28 +17,22 @@ class KaryawanItems extends Component {
     const { auth, karyawan, index } = this.props
 
     let karyawanContent
-    if (auth.isAuthenticated) {
-      karyawanContent = (
-        <tr>
-          <th scope="row">{index + 1}</th>
-          <td>{karyawan.nip}</td>
-          <td>{karyawan.name}</td>
-          <td>{karyawan.akademik}</td>
-          <td>{karyawan.agama}</td>
-          <td>{karyawan.jabatan}</td>
-          <td>{karyawan.jenisKelamin}</td>
-          <td>{karyawan.tempatLahir}</td>
-          <td>
-            {karyawan.tanggalLahir ? (
-              <Moment format="DD/MM/YYYY">{karyawan.tanggalLahir}</Moment>
-            ) : (
-              ""
-            )}
-          </td>
-          <td>{karyawan.alamat}</td>
-          <td>{karyawan.noTelepon}</td>
-          <td>{karyawan.status}</td>
-          <td>
+    karyawanContent = (
+      <tr>
+        <th scope="row">{index + 1}</th>
+        <td>{karyawan.nip}</td>
+        <td>{karyawan.name}</td>
+        <td>{karyawan.agama}</td>
+        <td>{karyawan.jabatan}</td>
+        <td>{karyawan.jenisKelamin}</td>
+        <td>{karyawan.tempatLahir}</td>
+        <td>{karyawan.alamat}</td>
+        <td>{karyawan.penilaian[0].tahun}</td>
+        <td>{karyawan.penilaian[0].semester}</td>
+        <td>{karyawan.penilaian[0].nilai}</td>
+        <td>{karyawan.status}</td>
+        <td>
+          {auth.isAuthenticated ? (
             <ul style={{ listStyleType: "none" }}>
               <li>
                 <Link
@@ -58,6 +51,14 @@ class KaryawanItems extends Component {
                 </Link>
               </li>
               <li>
+                <Link
+                  className="btn btn-sm btn-secondary text-white"
+                  to={`/karyawan/id/${karyawan._id}`}
+                >
+                  Penilaian
+                </Link>
+              </li>
+              <li>
                 <button
                   type="button"
                   className="btn btn-sm btn-danger"
@@ -67,30 +68,7 @@ class KaryawanItems extends Component {
                 </button>
               </li>
             </ul>
-          </td>
-        </tr>
-      )
-    } else {
-      karyawanContent = (
-        <tr>
-          <th scope="row">{index + 1}</th>
-          <td>{karyawan.nip}</td>
-          <td>{karyawan.name}</td>
-          <td>{karyawan.akademik}</td>
-          <td>{karyawan.agama}</td>
-          <td>{karyawan.jabatan}</td>
-          <td>{karyawan.jenisKelamin}</td>
-          <td>{karyawan.tempatLahir}</td>
-          <td>
-            {karyawan.tanggalLahir ? (
-              <Moment format="DD/MM/YYYY">{karyawan.tanggalLahir}</Moment>
-            ) : (
-              ""
-            )}
-          </td>
-          <td>{karyawan.alamat}</td>
-          <td>{karyawan.noTelepon}</td>
-          <td>
+          ) : (
             <ul style={{ listStyleType: "none" }}>
               <li>
                 <Link
@@ -101,11 +79,10 @@ class KaryawanItems extends Component {
                 </Link>
               </li>
             </ul>
-          </td>
-        </tr>
-      )
-    }
-
+          )}
+        </td>
+      </tr>
+    )
     return <React.Fragment>{karyawanContent}</React.Fragment>
   }
 }

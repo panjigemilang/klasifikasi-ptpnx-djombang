@@ -14,13 +14,6 @@ import KaryawanFeed from "./Components/Karyawan/KaryawanFeed"
 import PrivateRoute from "./Components/Common/PrivateRoute"
 import AddKaryawan from "./Components/Karyawan/AddKaryawan"
 import EditKaryawan from "./Components/Karyawan/EditKaryawan"
-
-// Redux setup
-import { Provider } from "react-redux"
-import store from "./store"
-import setAuthToken from "./utils/setAuthToken"
-import { setCurrentUser, logout } from "./actions/authActions"
-import jwt_decode from "jwt-decode"
 import Dashboard from "./Components/Dashboard/Dashboard"
 import Profile from "./Components/Profile/Profile"
 import AddEducation from "./Components/Creds/AddEducation"
@@ -29,6 +22,14 @@ import AddAllowance from "./Components/Creds/AddAllowance"
 import AddPelatihan from "./Components/Creds/AddPelatihan"
 import AddAchievement from "./Components/Creds/AddAchievement"
 import ExportPdf from "./Components/Creds/ExportPdf"
+
+// Redux setup
+import { Provider } from "react-redux"
+import store from "./store"
+import setAuthToken from "./utils/setAuthToken"
+import { setCurrentUser, logout } from "./actions/authActions"
+import jwt_decode from "jwt-decode"
+import EditKaryawanNilai from "./Components/Karyawan/EditKaryawanNilai"
 
 if (localStorage.jwtToken) {
   // set token to authorization
@@ -49,80 +50,91 @@ if (localStorage.jwtToken) {
   }
 }
 
-function App() {
-  return (
-    <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/karyawan-list" component={KaryawanFeed} />
-          <Route exact path="/profile/id/:user_id" component={Profile} />
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/karyawan-list" component={KaryawanFeed} />
+            <Route exact path="/profile/id/:user_id" component={Profile} />
 
-          {/* Private Route */}
-          <Switch>
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          </Switch>
-          <Switch>
-            <PrivateRoute exact path="/add-karyawan" component={AddKaryawan} />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/add-education/:user_id"
-              component={AddEducation}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/add-experience/:user_id"
-              component={AddExperience}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/add-allowance/:user_id"
-              component={AddAllowance}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/add-pelatihan/:user_id"
-              component={AddPelatihan}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/add-achievement/:user_id"
-              component={AddAchievement}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/profile/export/:user_id"
-              component={ExportPdf}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/karyawan/nip/:nip"
-              component={EditKaryawan}
-            />
-          </Switch>
+            {/* Private Route */}
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-karyawan"
+                component={AddKaryawan}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/add-education/:user_id"
+                component={AddEducation}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/add-experience/:user_id"
+                component={AddExperience}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/add-allowance/:user_id"
+                component={AddAllowance}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/add-pelatihan/:user_id"
+                component={AddPelatihan}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/add-achievement/:user_id"
+                component={AddAchievement}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/profile/export/:user_id"
+                component={ExportPdf}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/karyawan/nip/:nip"
+                component={EditKaryawan}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/karyawan/id/:user_id"
+                component={EditKaryawanNilai}
+              />
+            </Switch>
 
-          <Footer />
-        </div>
-      </Router>
-    </Provider>
-  )
+            <Footer />
+          </div>
+        </Router>
+      </Provider>
+    )
+  }
 }
-
-export default App

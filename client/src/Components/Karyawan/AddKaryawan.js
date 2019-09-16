@@ -67,6 +67,8 @@ class AddKaryawan extends Component {
       tempatLahir: this.state.tempatLahir,
       alamat: this.state.alamat,
       email: this.state.email,
+      tahun: 2019,
+      semester: 1,
       status: this.state.status,
       tanggalLahir: this.state.tanggalLahir,
       fotoProfil: this.state.fotoProfil
@@ -77,7 +79,7 @@ class AddKaryawan extends Component {
     // setTimeout for loading
     window.setTimeout(() => {
       document.getElementsByTagName("html")[0].className -= " wait"
-    }, 5000)
+    }, 2500)
   }
 
   render() {

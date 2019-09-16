@@ -35,6 +35,7 @@ class EditKaryawan extends Component {
       alamat: "",
       noTelepon: "",
       email: "",
+      status: "",
       fotoProfil: "",
       errors: {}
     }
@@ -72,6 +73,7 @@ class EditKaryawan extends Component {
         ? profile.tempatLahir
         : ""
       profile.email = !isEmpty(profile.email) ? profile.email : ""
+      profile.status = !isEmpty(profile.status) ? profile.status : ""
       profile.alamat = !isEmpty(profile.alamat) ? profile.alamat : ""
       profile.tanggalLahir = !isEmpty(profile.tanggalLahir)
         ? profile.tanggalLahir
@@ -93,6 +95,7 @@ class EditKaryawan extends Component {
         alamat: profile.alamat,
         tanggalLahir: profile.tanggalLahir,
         email: profile.email,
+        status: profile.status,
         fotoProfil: profile.fotoProfil
       })
     }
@@ -132,6 +135,7 @@ class EditKaryawan extends Component {
       tempatLahir: this.state.tempatLahir,
       alamat: this.state.alamat,
       email: this.state.email,
+      status: this.state.status,
       tanggalLahir: this.state.tanggalLahir,
       fotoProfil: this.state.fotoProfil
     }

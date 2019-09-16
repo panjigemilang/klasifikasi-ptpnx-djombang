@@ -58,9 +58,6 @@ router.post(
     // Upload image
     upload(req, res, err => {
       if (!err) {
-        console.log("ini req File")
-        console.log(req.file)
-
         const profileField = {}
         profileField.fotoProfil = req.file.filename
 
@@ -99,15 +96,30 @@ router.post(
 )
 
 // get all employees
-router.get("/all", (req, res) => {
+router.post("/all", (req, res) => {
   const errors = {}
 
-  Karyawan.find()
+  Karyawan.find({
+    penilaian: {
+      $elemMatch: { tahun: req.body.tahun, semester: req.body.semester }
+    }
+  })
     .then(profiles => {
       if (!profiles) {
         errors.noEmployee = "Employee not found"
         return res.status(404).json(errors)
       }
+
+      profiles.map((item, i) => {
+        item.penilaian.filter(filterItem => {
+          if (
+            filterItem.tahun == req.body.tahun &&
+            filterItem.semester == req.body.semester
+          )
+            profiles[i].penilaian = filterItem
+        })
+      })
+
       res.json(profiles)
     })
     .catch(err => {
@@ -260,27 +272,16 @@ router.post(
 
           // Save profile
           new Profile(newProfile).save()
-          console.log("selesai save")
         })
       }
 
       res.status(200).json({
         message: "Success. saved"
       })
-
-      // if (!isValid) {
-      //   return res.status(400).json({
-      //     errors: errors
-      //   })
-      // } else {
-      //   return res.status(200).json({
-      //     msg: success
-      //   })
-      // }
     } catch (error) {
-      console.log("ini error")
-
-      console.log(error)
+      res.status(404).json({
+        message: "error"
+      })
     }
   }
 )
@@ -325,6 +326,10 @@ router.post(
               alamat: req.body.alamat,
               tanggalLahir: req.body.tanggalLahir,
               email: req.body.email,
+              penilaian: {
+                tahun: req.body.tahun,
+                semester: req.body.semester
+              },
               fotoProfil: req.body.fotoProfil,
               status: req.body.status
             })
@@ -381,21 +386,70 @@ router.post(
     if (req.body.email) karyawanField.email = req.body.email
     if (req.body.status) karyawanField.status = req.body.status
 
-    Karyawan.findOneAndUpdate(
-      {
+    if (req.body.tahun) {
+      const filter = {
+        tahun: req.body.tahun,
+        semester: req.body.semester
+      }
+
+      Karyawan.findOne({
         _id: req.params.user_id
-      },
-      {
-        $set: karyawanField
-      },
-      { new: true }
-    )
-      .then(profile => {
-        res.status(200).json(profile)
+      }).then(found => {
+        if (found) {
+          let addOrUpdate = false,
+            updateIndex,
+            i = 0
+          while (i < found.penilaian.length) {
+            if (
+              found.penilaian[i].tahun == filter.tahun &&
+              found.penilaian[i].semester == filter.semester
+            ) {
+              addOrUpdate = true
+              updateIndex = i
+              i++
+              addOrUpdate
+            }
+            i++
+          }
+
+          if (!addOrUpdate) {
+            // Add New
+            const newNilai = {
+              tahun: req.body.tahun,
+              semester: req.body.semester,
+              nilai: req.body.nilai
+            }
+
+            found.penilaian.push(newNilai)
+            return found.save().then(err => {
+              res.json(err)
+            })
+          } else {
+            // Update
+            found.penilaian[updateIndex].nilai = req.body.nilai
+            return found.save().then(err => {
+              res.json(err)
+            })
+          }
+        }
       })
-      .catch(err => {
-        res.status(400).json(err)
-      })
+    } else {
+      Karyawan.findOneAndUpdate(
+        {
+          _id: req.params.user_id
+        },
+        {
+          $set: karyawanField
+        },
+        { new: true }
+      )
+        .then(profile => {
+          res.status(200).json(profile)
+        })
+        .catch(err => {
+          res.status(400).json(err)
+        })
+    }
   }
 )
 

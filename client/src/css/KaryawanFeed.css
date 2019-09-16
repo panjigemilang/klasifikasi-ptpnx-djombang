@@ -3,6 +3,7 @@
   /* overflow-y: scroll; */
   background: url("../img/Artboard 1.png") no-repeat;
   background-position: top;
+  background-size: cover;
   overflow-x: scroll;
   z-index: -1;
 }

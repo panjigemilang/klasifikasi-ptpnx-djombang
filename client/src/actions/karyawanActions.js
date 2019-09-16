@@ -86,10 +86,10 @@ export const uploadImage = (nip, formData, config) => dispatch => {
 }
 
 // get all employees
-export const getEmployees = () => dispatch => {
+export const getEmployees = data => dispatch => {
   dispatch(setPostLoading())
   axios
-    .get("/api/employees/all")
+    .post("/api/employees/all", data)
     .then(res =>
       dispatch({
         type: GET_EMPLOYEES,
