@@ -61,9 +61,6 @@ class KaryawanFeed extends Component {
       tahun: this.state.tahun,
       semester: this.state.semester
     }
-
-    console.log("Data", data)
-
     this.props.getEmployees(data)
     // window.setTimeout(window.location.reload(true), 2000)
   }

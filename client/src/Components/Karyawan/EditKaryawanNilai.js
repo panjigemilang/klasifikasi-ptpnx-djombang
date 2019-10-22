@@ -29,6 +29,15 @@ class EditKaryawan extends Component {
       kesembilan: 8,
       tahun: 2019,
       semester: 1,
+      c1: 0,
+      c2: 0,
+      c3: 0,
+      c4: 0,
+      c5: 0,
+      c6: 0,
+      c7: 0,
+      c8: 0,
+      c9: 0,
       nip: "",
       name: "",
       jabatan: "",
@@ -84,69 +93,18 @@ class EditKaryawan extends Component {
   }
 
   querySelectParent(i) {
-    let arr = []
+    let value
     document.querySelectorAll(`.parent${i} input`).forEach(val => {
       if (val.checked) {
-        const value = val.value / 100
-        arr.push(value)
+        value = val.value
       }
     })
 
-    return arr
-  }
-
-  queryCheckInput() {
-    let arr = []
-    document.querySelectorAll("form.form-check input").forEach(val => {
-      arr.push(val.value)
-    })
-
-    return arr
+    return value
   }
 
   onSubmit(e, id) {
     e.preventDefault()
-
-    // Logic sementara
-    const [
-      nilai1,
-      nilai2,
-      nilai3,
-      nilai4,
-      nilai5,
-      nilai6,
-      nilai7,
-      nilai8,
-      nilai9,
-      total
-    ] = [[], [], [], [], [], [], [], [], [], []]
-
-    nilai1.push(this.querySelectParent(1))
-    nilai2.push(this.querySelectParent(2))
-    nilai3.push(this.querySelectParent(3))
-    nilai4.push(this.querySelectParent(4))
-    nilai5.push(this.querySelectParent(5))
-    nilai6.push(this.querySelectParent(6))
-    nilai7.push(this.querySelectParent(7))
-    nilai8.push(this.querySelectParent(8))
-    nilai9.push(this.querySelectParent(9))
-
-    // logical calculate
-    total.push(
-      nilai1[0] * this.state.pertama +
-        nilai2[0] * this.state.kedua +
-        nilai3[0] * this.state.ketiga +
-        nilai4[0] * this.state.keempat +
-        nilai5[0] * this.state.kelima +
-        nilai6[0] * this.state.keenam +
-        nilai7[0] * this.state.ketujuh +
-        nilai8[0] * this.state.kedelapan +
-        nilai9[0] * this.state.kesembilan
-    )
-
-    total[0] = total[0].toFixed(3)
-
-    const nilaiAkhir = this.checkGrade(total[0])
 
     const profileData = {
       nip: this.state.nip,
@@ -159,7 +117,15 @@ class EditKaryawan extends Component {
       status: this.state.status,
       tahun: this.state.tahun,
       semester: this.state.semester,
-      nilai: nilaiAkhir
+      c1: this.querySelectParent(1),
+      c2: this.querySelectParent(2),
+      c3: this.querySelectParent(3),
+      c4: this.querySelectParent(4),
+      c5: this.querySelectParent(5),
+      c6: this.querySelectParent(6),
+      c7: this.querySelectParent(7),
+      c8: this.querySelectParent(8),
+      c9: this.querySelectParent(9)
     }
 
     this.props.updateKaryawan(id, profileData, this.props.history)
@@ -169,26 +135,6 @@ class EditKaryawan extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-  }
-
-  checkGrade(nilai) {
-    if (nilai > 0.8) {
-      return `A ~ ${nilai}`
-    } else if (nilai <= 0.8 && nilai > 0.75) {
-      return `B+ ~ ${nilai}`
-    } else if (nilai <= 0.75 && nilai > 0.69) {
-      return `B ~ ${nilai}`
-    } else if (nilai <= 0.69 && nilai > 0.6) {
-      return `C+ ~ ${nilai}`
-    } else if (nilai <= 0.6 && nilai > 0.55) {
-      return `C ~ ${nilai}`
-    } else if (nilai <= 0.55 && nilai > 0.5) {
-      return `D+ ~ ${nilai}`
-    } else if (nilai <= 0.5 && nilai > 0.44) {
-      return `D ~ ${nilai}`
-    } else {
-      return `E ~ ${nilai}`
-    }
   }
 
   render() {
@@ -478,7 +424,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio1"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -488,7 +434,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio1"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -498,7 +444,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio1"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -509,7 +455,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio1"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -528,7 +474,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio2"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -538,7 +484,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio2"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -548,7 +494,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio2"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -559,7 +505,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio2"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -578,7 +524,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio3"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -588,7 +534,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio3"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -598,7 +544,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio3"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -609,7 +555,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio3"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -628,7 +574,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio4"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -638,7 +584,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio4"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -648,7 +594,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio4"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -659,7 +605,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio4"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -678,7 +624,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio5"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -688,7 +634,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio5"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -698,7 +644,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio5"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -709,7 +655,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio5"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -728,7 +674,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio6"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -738,7 +684,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio6"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -748,7 +694,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio6"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -759,7 +705,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio6"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -778,7 +724,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio7"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -788,7 +734,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio7"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -798,7 +744,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio7"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -809,7 +755,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio7"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -828,7 +774,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio8"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -838,7 +784,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio8"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -848,7 +794,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio8"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -859,7 +805,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio8"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>
@@ -878,7 +824,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio1"
                             name="optradio9"
-                            value={1}
+                            value={4}
                           />
                           1
                         </div>
@@ -888,7 +834,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio2"
                             name="optradio9"
-                            value={0.75}
+                            value={3}
                           />
                           2
                         </div>
@@ -898,7 +844,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio3"
                             name="optradio9"
-                            value={0.5}
+                            value={2}
                           />
                           3
                         </div>
@@ -909,7 +855,7 @@ class EditKaryawan extends Component {
                             className="form-check-input"
                             id="radio4"
                             name="optradio9"
-                            value={0.25}
+                            value={1}
                           />
                           4
                         </div>

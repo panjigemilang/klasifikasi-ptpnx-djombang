@@ -17,11 +17,11 @@ class Landing extends Component {
   render() {
     return (
       <div className="wrapper">
-        <div class="row">
+        <div className="row">
           <div className="container">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-              <div class="kotak-konten">
-                <h1 class="display-4 tengah">Selamat Datang</h1>
+            <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+              <div className="kotak-konten">
+                <h1 className="display-4 tengah">Selamat Datang</h1>
                 <p>
                   &nbsp; Program Aplikasi website buatan mahasiswa Informatika
                   UB 2016, klasifikasi kinerja pegawai menggunakan metode{" "}
@@ -29,7 +29,7 @@ class Landing extends Component {
                 </p>
               </div>
             </div>
-            <div class="col-lg-6 col-md-12" />
+            <div className="col-lg-6 col-md-12" />
           </div>
         </div>
       </div>

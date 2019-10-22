@@ -28,6 +28,7 @@
     "prop-types": "^15.7.2",
     "react-scripts": "^3.0.1",
     "serverless-http": "^2.0.2",
+    "underscore": "^1.9.1",
     "validator": "^11.1.0"
   },
   "devDependencies": {

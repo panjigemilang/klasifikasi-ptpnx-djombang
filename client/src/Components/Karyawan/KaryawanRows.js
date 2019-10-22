@@ -1,13 +1,20 @@
 import React, { Component } from "react"
 import KaryawanItems from "./KaryawanItems"
+import isEmpty from "../../validations/is-empty"
 
 class KaryawanRows extends Component {
-  render() {
-    const { karyawan } = this.props
+  state = {
+    karyawan: []
+  }
 
-    return karyawan.map((karyawanItem, i) => (
-      <KaryawanItems key={i} karyawan={karyawanItem} index={i} />
-    ))
+  render() {
+    this.state.karyawan = this.props.karyawan
+
+    return !isEmpty(this.state.karyawan)
+      ? this.state.karyawan.map((karyawanItem, i) => (
+          <KaryawanItems key={i} karyawan={karyawanItem} index={i} />
+        ))
+      : []
   }
 }
 

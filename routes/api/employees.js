@@ -2,6 +2,7 @@
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
+var _ = require("underscore")
 
 // Model
 const Karyawan = require("../../models/Karyawan")
@@ -95,6 +96,12 @@ router.post(
   }
 )
 
+router.get("/all", (req, res) => {
+  Karyawan.find()
+    .then(karyawan => res.json(karyawan))
+    .catch(err => res.json(err))
+})
+
 // get all employees
 router.post("/all", (req, res) => {
   const errors = {}
@@ -104,26 +111,98 @@ router.post("/all", (req, res) => {
       $elemMatch: { tahun: req.body.tahun, semester: req.body.semester }
     }
   })
-    .then(profiles => {
-      if (!profiles) {
-        errors.noEmployee = "Employee not found"
-        return res.status(404).json(errors)
-      }
-
-      profiles.map((item, i) => {
-        item.penilaian.filter(filterItem => {
-          if (
-            filterItem.tahun == req.body.tahun &&
-            filterItem.semester == req.body.semester
-          )
-            profiles[i].penilaian = filterItem
+    .then(async profiles => {
+      if (profiles) {
+        profiles.map((item, i) => {
+          item.penilaian.filter(filterItem => {
+            if (
+              filterItem.tahun == req.body.tahun &&
+              filterItem.semester == req.body.semester
+            )
+              profiles[i].penilaian = filterItem
+          })
         })
-      })
 
-      res.json(profiles)
+        // Kalkulasi  nilai disini
+        // Function for computational
+        const saw = karyawan => {
+          let a = [],
+            temp = [],
+            index = 0
+
+          do {
+            temp.push(karyawan[index].penilaian[0].c1)
+            temp.push(karyawan[index].penilaian[0].c2)
+            temp.push(karyawan[index].penilaian[0].c3)
+            temp.push(karyawan[index].penilaian[0].c4)
+            temp.push(karyawan[index].penilaian[0].c5)
+            temp.push(karyawan[index].penilaian[0].c6)
+            temp.push(karyawan[index].penilaian[0].c7)
+            temp.push(karyawan[index].penilaian[0].c8)
+            temp.push(karyawan[index].penilaian[0].c9)
+
+            a.push(temp)
+            temp = []
+            index++
+          } while (index < karyawan.length)
+
+          //   Transpose
+          const aT = _.zip.apply(_, a)
+
+          let array = [],
+            row = 0
+
+          do {
+            for (let col = 0; col < aT[0].length; col++) {
+              temp.push(aT[row][col] / _.max(aT[row]))
+            }
+            array.push(temp)
+            temp = []
+            row++
+          } while (row < aT.length)
+
+          //   Transpose back
+          const b = _.zip.apply(_, array)
+
+          //   multiply with weight
+          const nilaiAkhir = [],
+            bobot = [0.14, 0.13, 0.1, 0.12, 0.09, 0.1, 0.11, 0.13, 0.08]
+
+          temp = []
+          row = 0
+
+          do {
+            for (let col = 0; col < b[0].length; col++) {
+              temp.push(b[row][col] * bobot[col])
+            }
+            nilaiAkhir.push(temp)
+            temp = []
+            row++
+          } while (row < b.length)
+
+          let total = []
+          row = 0
+
+          //   Sums every data
+          for (let index = 0; index < nilaiAkhir.length; index++) {
+            total.push(nilaiAkhir[row].reduce((a, b) => a + b).toFixed(3))
+            row++
+          }
+
+          return total
+        }
+        // :: END ::
+        const values = await saw(profiles)
+
+        for (let index = 0; index < profiles.length; index++) {
+          profiles[index].penilaian[0].nilai = values[index]
+        }
+
+        return res.status(200).json(profiles)
+      }
     })
     .catch(err => {
-      return res.status(404).json("There are no employees found")
+      return res.status(404).json(["not found"])
     })
 })
 
@@ -307,12 +386,18 @@ router.post(
       } else {
         Karyawan.findOne({
           nip: req.body.nip
-        }).then(exists => {
+        }).then(async exists => {
           if (exists) {
             return res.status(400).json({
               nip: "Karyawan telah terdaftar dengan NIK yang sama."
             })
           } else {
+            // Kalkulasi ketika insert Create Karyawan
+            await Karyawan.find()
+              .then(allEmployees => {})
+              .catch(err => err)
+            // :: END ::
+
             const newEmp = new Karyawan({
               nip: req.body.nip,
               name: req.body.name,
@@ -328,7 +413,8 @@ router.post(
               email: req.body.email,
               penilaian: {
                 tahun: req.body.tahun,
-                semester: req.body.semester
+                semester: req.body.semester,
+                nilai: 0
               },
               fotoProfil: req.body.fotoProfil,
               status: req.body.status
@@ -407,17 +493,23 @@ router.post(
               addOrUpdate = true
               updateIndex = i
               i++
-              addOrUpdate
             }
             i++
           }
 
           if (!addOrUpdate) {
-            // Add New
             const newNilai = {
               tahun: req.body.tahun,
               semester: req.body.semester,
-              nilai: req.body.nilai
+              c1: req.body.c1,
+              c2: req.body.c2,
+              c3: req.body.c3,
+              c4: req.body.c4,
+              c5: req.body.c5,
+              c6: req.body.c6,
+              c7: req.body.c7,
+              c8: req.body.c8,
+              c9: req.body.c9
             }
 
             found.penilaian.push(newNilai)
@@ -426,7 +518,16 @@ router.post(
             })
           } else {
             // Update
-            found.penilaian[updateIndex].nilai = req.body.nilai
+            ;(found.penilaian[updateIndex].c1 = req.body.c1),
+              (found.penilaian[updateIndex].c2 = req.body.c2),
+              (found.penilaian[updateIndex].c3 = req.body.c3),
+              (found.penilaian[updateIndex].c4 = req.body.c4),
+              (found.penilaian[updateIndex].c5 = req.body.c5),
+              (found.penilaian[updateIndex].c6 = req.body.c6),
+              (found.penilaian[updateIndex].c7 = req.body.c7),
+              (found.penilaian[updateIndex].c8 = req.body.c8),
+              (found.penilaian[updateIndex].c9 = req.body.c9)
+
             return found.save().then(err => {
               res.json(err)
             })
